@@ -1,0 +1,1 @@
+@echo [%2m%~1... Started at %time%[0m

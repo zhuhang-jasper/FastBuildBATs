@@ -1,0 +1,1 @@
+@echo [%2mFinished %~1. Ended at %time% [0m

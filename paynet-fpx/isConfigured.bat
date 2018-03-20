@@ -1,0 +1,1 @@
+@if "%isConfigLoaded%"=="" (@echo Configuration not set. Please start with bootup.bat & @echo Press any key to close . . . & pause 1>NUL & exit)

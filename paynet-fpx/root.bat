@@ -1,0 +1,2 @@
+@call isConfigured
+@cd %root%

@@ -1,0 +1,1 @@
+@start notepad %userConfig_file%
