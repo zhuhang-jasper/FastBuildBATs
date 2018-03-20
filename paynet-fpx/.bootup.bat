@@ -1,10 +1,11 @@
-@set version=1.4.2
+@set version=1.4.3
 @set name=fastBuildBATs v%version%
 ::
 @set root=%~dp0
 @set path=%PATH%;%root%
 @cd /d "%root%"
 @set userConfig_file=.userConfig.bat
+if exist .userConfig.bat (@echo config exists) else (@copy ".userConfig.bat.default" ".userConfig.bat")
 :: --------------
 :: Load User Configuration
 :: --------------

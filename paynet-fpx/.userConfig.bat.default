@@ -1,8 +1,8 @@
 :: --------------
 :: Change Variables below
 :: --------------
-:: FOLDER PATHS
 @set project_title=FPX - MyClear
+:: LOCAL FOLDER PATHS
 @set jboss_root=D:\jboss-eap-6.4-fpx
 @set fpx_root=D:\.projects\paynet-fpx
 :: GRADLE COMMANDS
