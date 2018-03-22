@@ -1,0 +1,59 @@
+/*
+ *******************************************************************************
+   fastBuildBATs - File Lists & Versions
+|--------------------------------------------------------------------------------| 
+| Command/Filename(.bat)   | Ver.  | Author    | Function/Remarks    
+|--------------------------------------------------------------------------------| 
+::PROGRAM::
+  .bootup.bat              | 1.0.0 | zhuhang   | Set variables,[.userConfig],[welcome]
+  welcome.bat              | 1.0.0 | zhuhang   | Welcome splash screen
+  cmds.bat                 | 1.0.0 | zhuhang   | List all commands
+  edit.bat                 | 1.0.0 | zhuhang   | Open .bat file in notepad
+  .isConfigured.bat        | 1.1.0 | zhuhang   | Check .userConfig is loaded
+  .userConfig.bat          | 1.3.0 | zhuhang   | USERCONFIG file
+  reboot.bat               | 1.3.0 | zhuhang   | [.bootup]
+  .alwaysStartMe.bat       | 1.4.0 | zhuhang   | Boot program in CMD,rebootable
+  .cBegin.bat              | 1.4.1 | zhuhang   | Print start timestamp
+  .cEnd.bat                | 1.4.1 | zhuhang   | Print end timestamp
+  config.bat               | 1.4.2 | zhuhang   | [edit .userConfig]
+  .userConfig.bat.default  | 1.4.3 | zhuhang   | Default .userConfig file
+  .preLoad                 | 1.4.4 | zhuhang   | Do validations in one file
+  
+::GRADLE BUILD::
+  cb.bat                   | 1.0.0 | zhuhang   | Clean build webview
+  br.bat                   | 1.0.0 | zhuhang   | Build WAR
+  cbr.bat                  | 1.0.0 | zhuhang   | [cb], [br]
+  cb-ejb.bat               | 1.0.0 | zhuhang   | Clean build ejb
+  br-ejb.bat               | 1.0.0 | zhuhang   | Build EAR
+  mv-ejb.bat               | 1.0.0 | zhuhang   | Move ejb client to webview lib
+  cbr-ejb.bat              | 1.0.0 | zhuhang   | [cb-ejb],[br-ejb],[mv-ejb]
+  cbr-all.bat              | 1.0.0 | zhuhang   | [cbr],[cbr-ejb]
+  
+::JBOSS DEPLOY::
+  up-ear.bat               | 1.0.0 | zhuhang   | Deploy EAR to jboss
+  up-war.bat               | 1.0.0 | zhuhang   | Deploy WAR to jboss
+  deploy.bat               | 1.0.0 | zhuhang   | [up-war],[up-ear]
+  dodeploy.bat             | 1.0.0 | zhuhang   | Clean and regen .dodeploy marker
+  run.bat                  | 1.0.0 | zhuhang   | [dodeploy],Start UAT jboss 
+  run2.bat                 | 1.0.0 | zhuhang   | [dodeploy],Start FPXNEW jboss
+  rerun.bat                | 1.0.0 | zhuhang   | Rename .deployed to .dodeploy
+  2r.bat                   | 1.0.0 | zhuhang   | [cbr],[up-war],[rerun]
+  3r.bat                   | 1.0.0 | zhuhang   | [cbr-all],[deploy],[rerun]
+  3run.bat                 | 1.0.0 | zhuhang   | [cbr-all],[deploy],[run]
+  3run2.bat                | 1.0.0 | zhuhang   | [cbr-all],[deploy],[run2]
+  leaf.bat                 | 1.2.0 | zhuhang   | [up-res-templates],[up-res-locale]
+  up-res-locale.bat        | 1.3.0 | zhuhang   | Sync locale to WAR & deploy
+  up-res-static.bat        | 1.3.0 | zhuhang   | Sync static to WAR & deploy
+  up-res-templates.bat     | 1.3.0 | zhuhang   | Sync templates to WAR & deploy
+  up-res.bat               | 1.3.0 | zhuhang   | [up-res-*]
+
+::EXPLORER SHORTCUT::
+  ear.bat                  | 1.0.0 | zhuhang   | Open EAR dir
+  war.bat                  | 1.0.0 | zhuhang   | Open WAR dir
+  src-th.bat               | 1.0.0 | zhuhang   | Open thymeleaf template dir
+  src.bat                  | 1.0.0 | zhuhang   | Open project root dir
+  jboss-th.bat             | 1.0.0 | zhuhang   | Open jboss thymeleaf template dir
+  jboss.bat                | 1.0.0 | zhuhang   | Open jboss dir
+  
+ *******************************************************************************
+*/
