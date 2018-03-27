@@ -36,7 +36,7 @@
   dodeploy.bat             | 1.0.0 | zhuhang   | Clean and regen .dodeploy marker
   run.bat                  | 1.0.0 | zhuhang   | [dodeploy],Start UAT jboss 
   run2.bat                 | 1.0.0 | zhuhang   | [dodeploy],Start FPXNEW jboss
-  rerun.bat                | 1.0.0 | zhuhang   | Rename .deployed to .dodeploy
+  ##rerun.bat              | 1.0.0 | zhuhang   | Rename .deployed to .dodeploy
   2r.bat                   | 1.0.0 | zhuhang   | [cbr],[up-war],[rerun]
   3r.bat                   | 1.0.0 | zhuhang   | [cbr-all],[deploy],[rerun]
   3run.bat                 | 1.0.0 | zhuhang   | [cbr-all],[deploy],[run]
@@ -46,6 +46,7 @@
   up-res-static.bat        | 1.3.0 | zhuhang   | Sync static to WAR & deploy
   up-res-templates.bat     | 1.3.0 | zhuhang   | Sync templates to WAR & deploy
   up-res.bat               | 1.3.0 | zhuhang   | [up-res-*]
+  rerun.bat                | 1.4.5 | zhuhang   | Kill JBOSS CMD,[run/run2]
 
 ::EXPLORER SHORTCUT::
   ear.bat                  | 1.0.0 | zhuhang   | Open EAR dir

@@ -1,5 +1,5 @@
-@set version=1.4.4
-@set name=fastBuildBATs v%version%
+@set version=1.4.5
+@set name=FastBuildBATs v%version%
 ::
 @set root=%~dp0
 @set path=%PATH%;%root%

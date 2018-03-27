@@ -5,8 +5,9 @@ echo  --------------------------------------------------------------------
 echo                      [33m^<^<  %name%  ^>^>[0m   
 echo                 zhuhang's Fast Build + Deploy Commands  
 echo                           with Gradle, JBOSS
-echo                         Project: [36m%project_title%[0m  
+::echo                         Project: [36m%project_title%[0m  
 echo.
+echo   Project: [36m%project_title%[0m
 echo   Variables (Enter ^"config^" to change)
 echo     Gradle Penv ^(local//dev//...)    ^= [31m%Penv%[0m
 echo     run : branch-^>refinement (uat)   ^= [31m%jboss_uat_batname%[0m
