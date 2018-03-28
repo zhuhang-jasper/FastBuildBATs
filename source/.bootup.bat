@@ -1,5 +1,6 @@
-@set version=1.4.5b
-@set name=FastBuildBATs v%version%
+@set version=1.4.6
+@set tooltitle=FastBuildBATs
+@set toolname=%tooltitle% v%version%
 ::
 @set root=%~dp0
 @set path=%PATH%;%root%
@@ -27,6 +28,6 @@
 :: Program Starts
 :: --------------
 ::@color 0A
-@title %name% (%project_title%)
+@title %toolname% (%project_title%)
 @call welcome.bat
 @echo on

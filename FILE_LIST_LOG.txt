@@ -46,7 +46,8 @@
   up-res-static.bat        | 1.3.0 | zhuhang   | Sync static to WAR & deploy
   up-res-templates.bat     | 1.3.0 | zhuhang   | Sync templates to WAR & deploy
   up-res.bat               | 1.3.0 | zhuhang   | [up-res-*]
-  rerun.bat                | 1.4.5 | zhuhang   | Kill JBOSS CMD,[run/run2]
+  rerun.bat                | 1.4.5 | zhuhang   | [end],try last run-command[run/run2]
+  end.bat                  | 1.4.6 | zhuhang   | Kill JBOSS CMD
 
 ::EXPLORER SHORTCUT::
   ear.bat                  | 1.0.0 | zhuhang   | Open EAR dir

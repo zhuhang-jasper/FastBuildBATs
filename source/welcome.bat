@@ -2,7 +2,7 @@
 @echo off
 cls
 echo  --------------------------------------------------------------------
-echo                      [33m^<^<  %name%  ^>^>[0m   
+echo                      [33m^<^<  %toolname%  ^>^>[0m   
 echo                 zhuhang's Fast Build + Deploy Commands  
 echo                           with Gradle, JBOSS
 ::echo                         Project: [36m%project_title%[0m  
