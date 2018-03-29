@@ -1,12 +1,13 @@
-@set version=1.4.6
+@set version=1.4.7
 @set tooltitle=FastBuildBATs
 @set toolname=%tooltitle% v%version%
 ::
 @set root=%~dp0
-@set path=%PATH%;%root%
+@set path=%PATH%;%root%;C:\windows\explorer.exe
 @cd /d "%root%"
-@set userConfig_file=.userConfig.bat
-@if exist .userConfig.bat (@echo userConfig exists) else (@copy ".userConfig.bat.default" ".userConfig.bat")
+@set userConfig_file=%root%\.userConfig.bat
+@set userConfig_default=%root%\.userConfig.bat.default
+@if exist %userConfig_file% (@echo userConfig exists) else (@copy "%userConfig_default%" "%userConfig_file%")
 :: --------------
 :: Load User Configuration
 :: --------------
