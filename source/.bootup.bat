@@ -1,4 +1,4 @@
-@set version=1.4.7
+@set version=1.4.8
 @set tooltitle=FastBuildBATs
 @set toolname=%tooltitle% v%version%
 ::

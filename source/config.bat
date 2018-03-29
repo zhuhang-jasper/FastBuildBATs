@@ -1,2 +1,2 @@
 @call .preLoad.bat
-@start notepad %userConfig_file%
+@start %notepad_exec% %userConfig_file%
