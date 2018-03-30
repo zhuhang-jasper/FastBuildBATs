@@ -18,7 +18,7 @@
   config.bat               | 1.4.2 | zhuhang   | [edit .userConfig]
   .userConfig.bat.default  | 1.4.3 | zhuhang   | Default .userConfig file
   .preLoad                 | 1.4.4 | zhuhang   | Do validations in one file
-  root                     | 1.4.7 | zhuhang   | Change dir to tool source folder
+  root                     | 1.4.7 | zhuhang   | Change dir[cd] to tool source folder
 
 ::GRADLE BUILD::
   cb.bat                   | 1.0.0 | zhuhang   | Clean build webview

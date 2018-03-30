@@ -27,5 +27,5 @@ echo    rerun     =   close JBOSS server ^& start last run/run2
 echo    2r        =   one click Rebuild, Redeploy, Rerun (exclude EJB)
 echo    3r        =   one click Rebuild, Redeploy, Rerun
 echo    3run[2]   =   one click Rebuild, Redeploy, Run[Run2]
-echo  Others ^>^> [config]//[reboot]//[welcome]//[cmds]//[edit :cmd]
+echo  Others ^>^> [config]//[reboot]//[welcome]//[cmds]//[edit :cmd]//[root]
 @echo on
