@@ -1,5 +1,5 @@
 @call .preLoad.bat
-@call end.bat
+::@call end.bat
 ::@echo [33mRenaming .deployed to .dodeploy...[0m
 ::@pushd "%jboss_deploy_dir%"
 ::@ren *.deployed *.dodeploy 2>NUL & popd
