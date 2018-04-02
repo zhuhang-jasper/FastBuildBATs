@@ -1,33 +1,33 @@
 @set config_ver=1.5.0
 :: --------------
-:: Change Variables below
+:: USER CONFIG FILE FOR FASTBUILDBATS
 :: --------------
 @set project_title=FPX - MyClear
 
-:: LOCAL PATH FOR SOURCE AND SERVER
+:: LOCAL PATH FOR SOURCE CODE AND JBOSS
 @set jboss_root=D:\some_local_path_to\jboss-eap-6.4
 @set fpx_root=D:\some_local_path_to\paynet-fpx
 
-:: TEXT EDITOR TO USE
-@set dir_notepad=C:\Program Files\TortoiseGit\bin
-@set notepad_exec=notepad2
-::   ## dir_notepad  = (optional) file path of custom notepad to be used
-::   ## notepad_exec = (optional) command to run notepad, default = "notepad"
-
-:: OPTIONAL CUSTOM DEPENDENCY
-::@set dir_git=C:\Program Files\Git\cmd
-::@set dir_gradle=D:\gradle\gradle-2.14.1\bin
-::   ## dir_git      = (optional) not needed if already set in environment path variables
-::   ## dir_gradle   = (optional) not needed if already set in environment path variables
-
-:: GRADLE COMMANDS
-::  Penv = local//dev//office//...
+:: GRADLE COMMAND 
+::  Penv = local//dev//office//sit...
 @set Penv=local
 @set gradle_cmd_cleanbuild=gradle clean build -Penv=%Penv%
 @set gradle_cmd_buildrelease=gradle buildRelease -Penv=%Penv%
 
-:: JBOSS STANDALONE BATCH FILE NAME
-:: @set jboss_uat_batname=standalone-start-full.bat
-:: @set jboss_fpxnew_batname=standalone-start-full.bat
+:: JBOSS SERVER START-UP BATCH FILE
 @set jboss_uat_batname=standalone-start-uat.bat
 @set jboss_fpxnew_batname=standalone-start-fpxnew.bat
+:: @set jboss_uat_batname=standalone-start-full.bat
+:: @set jboss_fpxnew_batname=standalone-start-full.bat
+
+:: TEXT EDITOR PREFERENCES
+@set dir_notepad=C:\Program Files\TortoiseGit\bin
+@set notepad_exec=notepad2
+::   ## dir_notepad  = (optional) file path of custom editor to be used
+::   ## notepad_exec = (optional) command to run editor, default = "notepad"
+
+:: OPTIONAL DEPENDENCY PATHS
+::@set dir_git=C:\Program Files\Git\cmd
+::@set dir_gradle=D:\gradle\gradle-2.14.1\bin
+::   ## dir_git      = (optional) not needed if set in environment path
+::   ## dir_gradle   = (optional) not needed if set in environment path
