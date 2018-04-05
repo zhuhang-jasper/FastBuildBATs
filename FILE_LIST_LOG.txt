@@ -8,18 +8,21 @@
   .bootup.bat              | 1.0.0 | zhuhang   | Set variables,[.userConfig],[welcome]
   welcome.bat              | 1.0.0 | zhuhang   | Welcome splash screen
   cmds.bat                 | 1.0.0 | zhuhang   | List all commands
-  edit.bat                 | 1.0.0 | zhuhang   | Open .bat file in notepad
+  edit.bat %1              | 1.0.0 | zhuhang   | Open .bat file in notepad
   .isConfigured.bat        | 1.1.0 | zhuhang   | Check .userConfig is loaded
   .userConfig.bat          | 1.3.0 | zhuhang   | USERCONFIG file
   reboot.bat               | 1.3.0 | zhuhang   | [.bootup]
   .alwaysStartMe.bat       | 1.4.0 | zhuhang   | Boot program in CMD,rebootable
-  .cBegin.bat              | 1.4.1 | zhuhang   | Print start timestamp
-  .cEnd.bat                | 1.4.1 | zhuhang   | Print end timestamp
+  .cBegin.bat %1 %2        | 1.4.1 | zhuhang   | Print start timestamp
+  .cEnd.bat %1 %2          | 1.4.1 | zhuhang   | Print end timestamp
   config.bat               | 1.4.2 | zhuhang   | [edit .userConfig]
   .userConfig.bat.default  | 1.4.3 | zhuhang   | Default .userConfig file
   .preLoad                 | 1.4.4 | zhuhang   | Do validations in one file
   root                     | 1.4.7 | zhuhang   | Change dir[cd] to tool source folder
 
+::GIT CONTROL::
+  pull.bat  %1             | 1.5.3 | zhuhang   | Pull from specified branch 
+  
 ::GRADLE BUILD::
   cb.bat                   | 1.0.0 | zhuhang   | Clean build webview
   br.bat                   | 1.0.0 | zhuhang   | Build WAR

@@ -1,7 +1,7 @@
-@set version=1.5.2
+@set version=1.5.3
 @set tooltitle=FastBuildBATs
 :: -----------------------
-:: ##User Configuration 
+:: ##User Configuration
 :: -----------------------
 @set root=%~dp0
 @set userConfig_file=%root%\.userConfig.bat
@@ -43,6 +43,8 @@
 @echo ##Setting console path variables...
 @if defined dir_git @set path=%PATH%;%dir_git%
 @if defined dir_gradle @set path=%PATH%;%dir_gradle%
+:: -----------------------
+:: ##Program Configuration
 :: -----------------------
 @echo ##Setting program variables...
 @cd /d "%fpx_root%"
