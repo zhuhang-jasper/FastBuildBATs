@@ -1,10 +1,13 @@
 @call .preLoad.bat
-@cd %fpx_root%
 @if "%~1"=="" (echo ERROR: No branch specified. ^(Example: pull reporting^) & goto END)
 :BODY
+@cd %fpx_root%
 @setlocal
-@echo [33mGIT ^>[0m git pull origin %~1
-@SET /P AREYOUSURE=Confirm branch name (Y/N)?
+@echo.
+@echo [33mGIT Directory ^>[0m %fpx_root%
+@echo [33mGIT Command   ^>[0m git pull origin %~1
+@echo.
+@SET /P AREYOUSURE=Confirm pull (Y/N)?
 @IF /I "%AREYOUSURE%" NEQ "Y" (goto END)
 @echo [33mGIT ^>[0m Pulling from %~1...
 @git pull origin %~1
