@@ -11,11 +11,11 @@
 @if "%jboss_env%"=="UAT" (call run.bat & goto END)
 @if "%jboss_env%"=="FPXNEW" (call run2.bat & goto END)
 @echo [31mFAILED: Invalid JBOSS Environment.[0m 
-goto END
+@goto END
 
 :NEGATIVE
 @echo [31mFAILED: Could not perform last run... Maybe you just started/rebooted this tool.
 @echo         Please Enter ^"run^" or ^"run2^" to start.[0m
-goto END
+@goto END
 
 :END
