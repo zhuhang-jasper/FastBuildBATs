@@ -3,30 +3,38 @@
    fastBuildBATs - File Lists & Versions
 |--------------------------------------------------------------------------------| 
 | Command/Filename(.bat)   | Ver.  | Author    | Function/Remarks    
+|
+| ##   : file replaced due to big change in script
+| %[N] : parameters or flags
 |--------------------------------------------------------------------------------| 
 ::PROGRAM::
   .bootup.bat              | 1.0.0 | zhuhang   | Set variables,[.userConfig],[welcome]
   welcome.bat              | 1.0.0 | zhuhang   | Welcome splash screen
   cmds.bat                 | 1.0.0 | zhuhang   | List all commands
-  edit.bat %1              | 1.0.0 | zhuhang   | Open .bat file in notepad
+  edit.bat %1              | 1.0.0 | zhuhang   | Edit command in text editor
+ Note: %1 for command name
   .isConfigured.bat        | 1.1.0 | zhuhang   | Check .userConfig is loaded
   .userConfig.bat          | 1.3.0 | zhuhang   | USERCONFIG file
   reboot.bat               | 1.3.0 | zhuhang   | [.bootup]
   .alwaysStartMe.bat       | 1.4.0 | zhuhang   | Boot program in CMD,rebootable
   .cBegin.bat %1 %2        | 1.4.1 | zhuhang   | Print start timestamp
   .cEnd.bat %1 %2          | 1.4.1 | zhuhang   | Print end timestamp
+ Note: %1 for message output, %2 for message color code
   config.bat               | 1.4.2 | zhuhang   | [edit .userConfig]
   .userConfig.bat.default  | 1.4.3 | zhuhang   | Default .userConfig file
   .preLoad                 | 1.4.4 | zhuhang   | Do validations in one file
-  root                     | 1.4.7 | zhuhang   | Change dir[cd] to tool source folder
+  ##root                   | 1.4.7 | zhuhang   | [cd] to tool source folder
+  root %1                  | 1.6.0 | zhuhang   | [cd] toggle directory between project folder and tool folder
+ Note: %1=='e' for open explorer to tool folder
 
 ::GIT CONTROL::
-  pull.bat  %1             | 1.5.3 | zhuhang   | Pull from specified branch 
-  
+  pull.bat %1              | 1.5.3 | zhuhang   | Pull from specified branch 
+ Note: %1 for git branch
+
 ::GRADLE BUILD::
   cb.bat                   | 1.0.0 | zhuhang   | Clean build webview
   br.bat                   | 1.0.0 | zhuhang   | Build WAR
-  cbr.bat                  | 1.0.0 | zhuhang   | [cb], [br]
+  cbr.bat                  | 1.0.0 | zhuhang   | [cb],[br]
   cb-ejb.bat               | 1.0.0 | zhuhang   | Clean build ejb
   br-ejb.bat               | 1.0.0 | zhuhang   | Build EAR
   mv-ejb.bat               | 1.0.0 | zhuhang   | Move ejb client to webview lib
@@ -50,8 +58,9 @@
   up-res-static.bat        | 1.3.0 | zhuhang   | Sync static to WAR & deploy
   up-res-templates.bat     | 1.3.0 | zhuhang   | Sync templates to WAR & deploy
   up-res.bat               | 1.3.0 | zhuhang   | [up-res-*]
-  rerun.bat                | 1.4.5 | zhuhang   | [end],try last run-command[run/run2]
-  end.bat                  | 1.4.6 | zhuhang   | Kill JBOSS CMD
+  rerun.bat                | 1.4.5 | zhuhang   | [kill],try last run-command[run/run2]
+  ##end.bat                | 1.4.6 | zhuhang   | Kill JBOSS CMD
+  kill.bat                 | 1.6.0 | zhuhang   | Smart Kill JBOSS CMD
 
 ::EXPLORER SHORTCUT::
   ear.bat                  | 1.0.0 | zhuhang   | Open EAR dir

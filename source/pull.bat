@@ -10,6 +10,6 @@
 @SET /P AREYOUSURE=Confirm pull (Y/N)?
 @IF /I "%AREYOUSURE%" NEQ "Y" (goto END)
 @echo [33mGIT ^>[0m Pulling from %~1...
-@git pull origin %~1
+@git pull -v --no-rebase ^"origin^" %~1
 @endlocal
 :END

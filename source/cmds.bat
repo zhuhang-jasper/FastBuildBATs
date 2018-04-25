@@ -1,31 +1,62 @@
 @echo off
-echo  Commands: 
-echo     cb-ejb   =   clean build EJB
-echo     br-ejb   =   buildRelease EJB
-echo     mv-ejb   =   export EJB client JAR to webview libs folder
-echo    cbr-ejb   =   produce deployable EAR ^& ^"mv-ejb^" ^(cb ^+ br^) 
-echo     cb       =   clean build webview
-echo     br       =   buildRelease webview
-echo    cbr       =   produce deployable WAR ^(cb ^+ br^) 
-echo    cbr-all   =   produce deployable EAR ^& WAR ^(cbr ^+ cbr-ejb^) 
-echo    src       =   open file location for source codes
-echo    src-th    =   open file location for thymeleaf templates
-echo    war       =   open file location for WAR
-echo    ear       =   open file location for EAR
-echo    jboss     =   open file location for JBOSS deployment
-echo    jboss-th  =   open file location for JBOSS thymeleaf templates
-echo    leaf      =   update webview resources in WAR ^& JBOSS (template/locale)
-echo    up-res    =   update webview resources in WAR ^& JBOSS (template/static/locale)
-echo    up-war    =   update WAR folder in JBOSS deployment
-echo    up-ear    =   update EAR folder in JBOSS deployment
-echo    deploy    =   update WAR ^& EAR folders to JBOSS deployment
-echo    dodeploy  =   clean JBOSS marker files ^& autogen .dodeploy
-echo    run       =   start JBOSS server (UAT)
-echo    run2      =   start JBOSS server (FPXNEW)
-echo    end       =   close JBOSS server
-echo    rerun     =   close JBOSS server ^& start last run/run2
-echo    2r        =   one click Rebuild, Redeploy, Rerun (exclude EJB)
-echo    3r        =   one click Rebuild, Redeploy, Rerun
-echo    3run[2]   =   one click Rebuild, Redeploy, Run[Run2]
-echo  Others ^>^> [config]//[reboot]//[welcome]//[cmds]//[edit :cmd]//[root]
+
+@if "%~1"=="/all" (goto ALL)
+
+:COMMON
+echo  Most Useful Commands:
+echo    pull ^:1       =   git pull from default/input branch
+echo    cbr-ejb       =   build deployable EAR ^& update EJB client
+echo    cbr           =   build deployable WAR
+echo    cbr-all       =   one click build deployable EAR ^& WAR
+echo    deploy        =   update WAR ^& EAR folders in JBOSS deployment
+echo    run/run2      =   start JBOSS server (UAT)/(FPXNEW)
+echo    leaf          =   deploy changes (thymeleaf/locale)
+echo    up-res        =   deploy changes (thymeleaf/static/locale)
+echo    kill          =   close all running JBOSS servers
+echo    rerun         =   kill ^& rerun last started JBOSS server
+echo    3run/3run2    =   one click Rebuild, Redeploy, Run/Run2
+echo    2r            =   one click Rebuild, Redeploy, Rerun (only WAR)
+echo    3r            =   one click Rebuild, Redeploy, Rerun (WAR ^& EJB)
+echo    src           =   open explorer to folder ^> source code 
+echo    src-th        =   open explorer to folder ^> thymeleaf
+echo    jboss         =   open explorer to folder ^> JBOSS deployment
+echo  Others ^>^> [config]//[reboot]//[welcome]//[edit]//[root]
+echo.
+echo  [33mTo view complete list of commands, use ^"cmds /all^". [0m
+@goto END
+
+
+:ALL
+echo  All Available Commands:
+echo     cb-ejb       =   clean build EJB
+echo     br-ejb       =   buildRelease EJB
+echo     mv-ejb       =   export EJB client JAR to webview libs folder
+echo    cbr-ejb       =   produce deployable EAR ^& ^"mv-ejb^" ^(cb ^+ br^) 
+echo     cb           =   clean build webview
+echo     br           =   buildRelease webview
+echo    cbr           =   build deployable WAR ^(cb ^+ br^) 
+echo    cbr-all       =   build deployable EAR ^& WAR ^(cbr ^+ cbr-ejb^) 
+echo    src           =   open explorer to folder ^> project src code 
+echo    src-th        =   open explorer to folder ^> thymeleaf
+echo    war           =   open explorer to folder ^> WAR distr
+echo    ear           =   open explorer to folder ^> EAR distr
+echo    jboss         =   open explorer to folder ^> JBOSS deployment
+echo    jboss-th      =   open explorer to folder ^> JBOSS WAR thymeleaf
+echo    leaf          =   deploy changes (thymeleaf/locale)
+echo    up-res        =   deploy changes (thymeleaf/static/locale)
+echo    up-war        =   update WAR folder in JBOSS deployment
+echo    up-ear        =   update EAR folder in JBOSS deployment
+echo    deploy        =   update WAR ^& EAR folders in JBOSS deployment
+echo    dodeploy      =   clean JBOSS marker files ^& autogen .dodeploy
+echo    run/run2      =   start JBOSS server (UAT)/(FPXNEW)
+echo    kill          =   close all running JBOSS servers
+echo    rerun         =   kill ^& rerun last started JBOSS server
+echo    3run/3run2    =   one click Rebuild, Redeploy, Run/Run2
+echo    2r            =   one click Rebuild, Redeploy, Rerun (only WAR)
+echo    3r            =   one click Rebuild, Redeploy, Rerun (WAR ^& EJB)
+echo    pull ^:1       =   git pull from default/input branch
+echo  Others ^>^> [config]//[reboot]//[welcome]//[edit]//[root]
+@goto END
+
+:END
 @echo on
