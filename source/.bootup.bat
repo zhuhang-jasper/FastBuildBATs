@@ -1,4 +1,4 @@
-@set version=1.5.4
+@set version=1.5.5
 @set tooltitle=FastBuildBATs
 :: -----------------------
 :: ##User Configuration
