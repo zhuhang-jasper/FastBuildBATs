@@ -3,4 +3,4 @@
 @echo [33mWaiting for user to finish configuration in new window... [0m 
 @echo [33m(Program will reboot itself) [0m 
 @call %notepad_exec% %userConfig_file%
-@call reboot.bat
+::@call reboot.bat
