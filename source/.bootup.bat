@@ -1,4 +1,5 @@
-@set version=1.7.1
+:BOOTUP
+@set version=1.7.2
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
 :: -----------------------
@@ -42,7 +43,7 @@
 @if defined dir_7zip (if not exist "%dir_7zip%" @echo ERROR: DIR_7ZIP path is missing! & set error_config=1)
 @if defined dir_git (if not exist "%dir_git%" @echo ERROR: DIR_GIT path is missing! & set error_config=1)
 @if defined dir_gradle (if not exist "%dir_gradle%" @echo ERROR: DIR_GRADLE path is missing! & set error_config=1)
-@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & exit
+@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 @if defined dir_git set path=%PATH%;%dir_git%
 @if defined dir_gradle set path=%PATH%;%dir_gradle%
 @if defined dir_7zip set path=%PATH%;%dir_7zip%
@@ -54,7 +55,7 @@
 @if defined fpx_root (if not exist %fpx_root% @echo ERROR: FPX_ROOT path is missing! & set error_config=1)
 @if not defined local_temp_log echo ERROR: LOCAL_TEMP_LOG not defined! & set error_config=1
 @if defined local_temp_log (if not exist %local_temp_log% @echo ERROR: LOCAL_TEMP_LOG path is missing! & set error_config=1)
-@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & exit
+@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 @set jboss_bin_dir=%jboss_root%\bin
 @set jboss_deploy_dir=%jboss_root%\standalone\deployments
 @set fpx_admin_dir=%fpx_root%\fpx-admin
@@ -74,14 +75,14 @@
 @if defined gradle_cmd_cleanbuild (if "%gradle_cmd_cleanbuild%"=="" @echo ERROR: CMD_CLEANBUILD is blank! & set error_config=1)
 @if not defined gradle_cmd_buildrelease echo ERROR: CMD_BUILDRELEASE not defined! & set error_config=1
 @if defined gradle_cmd_buildrelease (if "%gradle_cmd_buildrelease%"=="" @echo ERROR: CMD_BUILDRELEASE is blank! & set error_config=1)
-@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & exit
+@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 :: -----------------------
 @echo ##Validating JBOSS batch file settings...
 @if not defined jboss_uat_batname echo ERROR: UAT_BATNAME not defined! & set error_config=1
 @if defined jboss_uat_batname (if not exist "%jboss_bin_dir%\%jboss_uat_batname%" @echo ERROR: UAT batch file is missing! & set error_config=1)
 @if not defined jboss_fpxnew_batname echo ERROR: FPXNEW_BATNAME not defined! & set error_config=1
 @if defined jboss_fpxnew_batname (if not exist "%jboss_bin_dir%\%jboss_fpxnew_batname%" @echo ERROR: FPXNEW batch file is missing! & set error_config=1)
-@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & exit
+@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 
 :: -----------------------
 :: ##Program Configuration
@@ -100,3 +101,8 @@
 @cd /d "%fpx_root%"
 @call welcome.bat
 @echo on
+@goto :EOF
+
+:AFTERCONFIG
+@goto BOOTUP
+@goto :EOF
