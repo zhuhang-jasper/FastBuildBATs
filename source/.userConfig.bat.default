@@ -1,18 +1,27 @@
-@set config_ver=1.5.0
-:: --------------
-:: USER CONFIG FILE FOR FASTBUILDBATS
-:: --------------
+@if "%~1"=="--git-default" goto GITDEFAULT
+@if "%~1"=="--penv-default" goto PENVDEFAULT
+:: ==========================
+::     USER CONFIGURATION
+:: ==========================
+@set config_ver=1.7
+
+:: Project name to appear in CMD title and welcome screen
 @set project_title=FPX - MyClear
 
-:: LOCAL PATH FOR SOURCE CODE AND JBOSS
+:: Username to appear in command shell
+@set username=Coder
+
+:: PROGRAM DEPENDENCY PATHS (Not needed if already set in environment path)
+@set dir_7zip=C:\Program Files\7-Zip
+@set dir_git=C:\Program Files\Git\cmd
+@set dir_gradle=D:\gradle\gradle-2.14.1\bin
+::@set dir_gradle=D:\gradle\gradle-2.14.1\bin
+
+:: PROJECT SOURCE CODE AND JBOSS PATH SETTINGS 
 @set jboss_root=D:\some_local_path_to\jboss-eap-6.4
 @set fpx_root=D:\some_local_path_to\paynet-fpx
-
-:: GRADLE COMMAND 
-::  Penv = local//dev//office//sit...
-@set Penv=local
-@set gradle_cmd_cleanbuild=gradle clean build -Penv=%Penv%
-@set gradle_cmd_buildrelease=gradle buildRelease -Penv=%Penv%
+:: Local log path in Penv groovy config
+@set local_temp_log=C:\temp
 
 :: JBOSS SERVER START-UP BATCH FILE
 @set jboss_uat_batname=standalone-start-uat.bat
@@ -20,14 +29,70 @@
 :: @set jboss_uat_batname=standalone-start-full.bat
 :: @set jboss_fpxnew_batname=standalone-start-full.bat
 
-:: TEXT EDITOR PREFERENCES
+:: GRADLE SETTINGS
+@set Penv=local
+::   ## Penv : local//dev//office//office_phase2//sit...
+::           : %Penv% will be auto added at end of commands below:
+@set gradle_cmd_cleanbuild=gradle clean build -Penv=
+@set gradle_cmd_buildrelease=gradle buildRelease -Penv=
+::   ## gradle_cmd_*  : gradle command to compile source code to WAR and EAR
+
+:: TEXT EDITOR SETTINGS
 @set dir_notepad=C:\Program Files\TortoiseGit\bin
 @set notepad_exec=notepad2
-::   ## dir_notepad  = (optional) file path of custom editor to be used
-::   ## notepad_exec = (optional) command to run editor, default = "notepad"
+::   ## dir_notepad  : (optional) file path of custom editor to be used
+::   ## notepad_exec : (optional) command to run editor. if not set, default = "notepad" 
 
-:: OPTIONAL DEPENDENCY PATHS
-::@set dir_git=C:\Program Files\Git\cmd
-::@set dir_gradle=D:\gradle\gradle-2.14.1\bin
-::   ## dir_git      = (optional) not needed if set in environment path
-::   ## dir_gradle   = (optional) not needed if set in environment path
+:: 7ZIP SETTINGS
+@set cmd_7z_tarball_prefix=deployments_
+::   ## cmd_7z_tarball_prefix  : (optional) prefix + Penv = file name
+::   ##         Example output : prefix_office.tar.gz, prefix_sit.tar.gz
+
+
+:: =======================================
+::    GIT DEFAULT BRANCH CONFIGURATION
+:: =======================================
+@goto :EOF
+:GITDEFAULT
+@call .preLoad.bat
+@set addedObj=
+:: Add your pairing below: [local branch]//[remote branch]
+@call :ADD "master//master"
+@call :ADD "reporting//reporting"
+::@call :ADD "your_local_branch//remote_branch_to_pull_from"
+::@call :ADD "your_local_branch//remote_branch_to_pull_from"
+:: End of pairing
+@if "%addedObj%"=="" goto :EOF
+@call set branch=%%addedObj:*%dev_branch%//=%%
+@set branch=%branch:;=&rem.%
+@set %~2=%branch%
+@set addedObj=
+@goto :EOF
+
+
+:: =======================================
+::    GRADLE DEFAULT PENV CONFIGURATION
+:: Note: Auto config Penv based on branch in use
+:: (Overwrites default in USER CONFIG)
+:: =======================================
+@goto :EOF
+:PENVDEFAULT
+@call .preLoad.bat
+@set addedObj=
+:: Add your pairing below: [local branch]//[Penv]
+@call :ADD "reporting//office_phase2"
+@call :ADD "refinement_1.15//office"
+@call :ADD "master//sit"
+::@call :ADD "your_local_branch//penv_to_use"
+::@call :ADD "your_local_branch//penv_to_use"
+:: End of pairing
+@if "%addedObj%"=="" goto :EOF
+@call set tempPenv=%%addedObj:*%dev_branch%//=%%
+@set tempPenv=%tempPenv:;=&rem.%
+@if "%tempPenv%" NEQ "" (set Penv=%tempPenv%)
+@set addedObj=
+@goto :EOF
+
+:ADD
+@set addedObj=%addedObj%;%~1
+@goto :EOF

@@ -1,2 +1,5 @@
+::ALWAYS RUN THIS BATCH FILE TO START TOOL
 @cd /d %~dp0
-@cmd /k ".bootup.bat"
+@start /b .bootshell.bat
+::@cmd /k ".bootshell.bat" & rem //old method
+@exit

@@ -15,7 +15,7 @@
  Note: %1 for command name
   .isConfigured.bat        | 1.1.0 | zhuhang   | Check .userConfig is loaded
   .userConfig.bat          | 1.3.0 | zhuhang   | USERCONFIG file
-  reboot.bat               | 1.3.0 | zhuhang   | [.bootup]
+  ##reboot.bat             | 1.3.0 | zhuhang   | [.bootup]
   .alwaysStartMe.bat       | 1.4.0 | zhuhang   | Boot program in CMD,rebootable
   .cBegin.bat %1 %2        | 1.4.1 | zhuhang   | Print start timestamp
   .cEnd.bat %1 %2          | 1.4.1 | zhuhang   | Print end timestamp
@@ -26,15 +26,25 @@
   ##root                   | 1.4.7 | zhuhang   | [cd] to tool source folder
   root %1                  | 1.6.0 | zhuhang   | [cd] toggle directory between project folder and tool folder
  Note: %1=='e' for open explorer to tool folder
+  help %1                  | 1.6.0 | zhuhang   | display help msg of commands
+ Note: %1 for command of which to show help message
+  dev (non-batch)          | 1.7.0 | zhuhang   | [edit .bootup]
+  /? (non-batch)           | 1.7.0 | zhuhang   | [help]
+  reboot (non-batch)       | 1.7.0 | zhuhang   | Reboot properly without stack call
+
+::7ZIP ARCHIVING::
+  targz.bat %1             | 1.6.0 | zhuhang   | Make jboss deployment into .tar.gz
+  extargz.bat %1 -%2       | 1.6.0 | zhuhang   | Build and export as .tar.gz (no traces)
+ Note: %1 for jboss subfolder, -%2='-soft' flag to skip gradle build
 
 ::GIT CONTROL::
-  pull.bat %1              | 1.5.3 | zhuhang   | Pull from specified branch 
+  pull.bat  %1             | 1.5.3 | zhuhang   | Pull from specified branch 
  Note: %1 for git branch
-
+  
 ::GRADLE BUILD::
   cb.bat                   | 1.0.0 | zhuhang   | Clean build webview
   br.bat                   | 1.0.0 | zhuhang   | Build WAR
-  cbr.bat                  | 1.0.0 | zhuhang   | [cb],[br]
+  cbr.bat                  | 1.0.0 | zhuhang   | [cb], [br]
   cb-ejb.bat               | 1.0.0 | zhuhang   | Clean build ejb
   br-ejb.bat               | 1.0.0 | zhuhang   | Build EAR
   mv-ejb.bat               | 1.0.0 | zhuhang   | Move ejb client to webview lib
@@ -42,10 +52,11 @@
   cbr-all.bat              | 1.0.0 | zhuhang   | [cbr],[cbr-ejb]
   
 ::JBOSS DEPLOY::
-  up-ear.bat               | 1.0.0 | zhuhang   | Deploy EAR to jboss
-  up-war.bat               | 1.0.0 | zhuhang   | Deploy WAR to jboss
-  deploy.bat               | 1.0.0 | zhuhang   | [up-war],[up-ear]
-  dodeploy.bat             | 1.0.0 | zhuhang   | Clean and regen .dodeploy marker
+  up-ear.bat %1            | 1.0.0 | zhuhang   | [Kill],Deploy EAR to jboss
+  up-war.bat %1            | 1.0.0 | zhuhang   | Deploy WAR to jboss
+  deploy.bat %1            | 1.0.0 | zhuhang   | [up-war],[up-ear]
+  dodeploy.bat %1          | 1.0.0 | zhuhang   | Clean and regen .dodeploy marker
+ Note: %1 for jboss subfolder
   run.bat                  | 1.0.0 | zhuhang   | [dodeploy],Start UAT jboss 
   run2.bat                 | 1.0.0 | zhuhang   | [dodeploy],Start FPXNEW jboss
   ##rerun.bat              | 1.0.0 | zhuhang   | Rename .deployed to .dodeploy

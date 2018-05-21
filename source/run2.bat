@@ -1,5 +1,5 @@
 @call .preLoad.bat
-@call end.bat
+@call kill.bat
 @call dodeploy.bat
 @pushd "%jboss_bin_dir%"
 @set jboss_env=FPXNEW

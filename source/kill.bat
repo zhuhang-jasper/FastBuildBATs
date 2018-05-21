@@ -18,10 +18,8 @@
 :: The word "Select" is prepended to window title
 @if not "%runningJbossSel%"=="0" (@taskkill /IM cmd.exe /FI "WINDOWTITLE eq Select JBOSS_MyClear*")
 
-@goto END
+@goto :EOF
 
 :NOTHING
 @echo [33mINFO: No on-going JBOSS server to be terminated. [0m
-@goto END
-
-:END
+@goto :EOF
