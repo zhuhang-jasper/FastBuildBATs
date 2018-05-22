@@ -33,4 +33,6 @@
 @echo [33mSUGGEST: Use command "config" to set default branch for pulling. [0m
 @goto END
 
-:END@endlocal
+:END
+@endlocal
+@goto :EOF
