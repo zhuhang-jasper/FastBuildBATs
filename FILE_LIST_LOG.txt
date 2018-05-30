@@ -50,6 +50,7 @@
   mv-ejb.bat               | 1.0.0 | zhuhang   | Move ejb client to webview lib
   cbr-ejb.bat              | 1.0.0 | zhuhang   | [cb-ejb],[br-ejb],[mv-ejb]
   cbr-all.bat              | 1.0.0 | zhuhang   | [cbr],[cbr-ejb]
+  eclipse                  | 1.7.3 | zhuhang   | Gradle Eclipse based on custom build.prop to update dependencies
   
 ::JBOSS DEPLOY::
   up-ear.bat %1            | 1.0.0 | zhuhang   | [Kill],Deploy EAR to jboss

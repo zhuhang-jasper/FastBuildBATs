@@ -4,7 +4,8 @@
 @if "%cd%\."=="%root%" (goto CD_PROJECTPATH)
 
 :CD_ROOTPATH
-@cd %root%@goto :EOF
+@cd %root%
+@goto :EOF
 
 :CD_PROJECTPATH
 @cd %fpx_root%

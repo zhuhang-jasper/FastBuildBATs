@@ -376,6 +376,27 @@
 @echo   ^> extargz office_phase2     ... For reporting office deployment.[0m
 @goto ENDHELP
 
+:ECLIPSE
+@echo Updates Eclipse IDE dependencies in ^<FPX_EJB_PATH^> based on 
+@echo branch in use and specified custom build.prop.
+@echo.
+@echo USAGE:
+@echo     eclipse [/clean /r] [/?]
+@echo         /clean      Undo modification of build.gradle file.
+@echo         /r          Undo modification of build.gradle file.
+@echo.
+@echo   ^<FPX_EJB_PATH^>    = "%fpx_ejb_dir%"
+@echo   REPORTING         =  "build.gradle.eclipse.reporting"
+@echo   REFINEMENT        =  "build.gradle.eclipse.refinement"
+@echo.
+@echo   Use command "config" to locate custom gradle.build file path. 
+@echo   Within custom file, please add eclipse-related modifications
+@echo.
+@echo Examples:
+@echo   ^> eclipe /clean     ... Undo changes made by ECLIPSE command.
+@echo   ^> eclipse -r        ... Undo changes made by ECLIPSE command.
+@goto ENDHELP
+
 :: =========================
 ::     HELP DOC END HERE
 :: =========================

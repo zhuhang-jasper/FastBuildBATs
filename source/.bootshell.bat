@@ -68,6 +68,7 @@
 ::redirect certain commands
 @if "%input_cmd%"=="cmd" (goto NOCMD)
 @if "%input_cmd%"=="--help--" (goto HELP)
+@if "%input_cmd%"=="cls" (set ucmd=welcome)
 @if "%input_cmd%"=="devcfg" (set ucmd=edit .bootup)
 @if "%input_cmd%"=="dev" (set ucmd=edit .bootshell)
 @if "%input_cmd%"=="help" (set ucmd=%ucmd:#s#help=help.bat%)

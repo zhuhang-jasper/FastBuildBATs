@@ -1,13 +1,14 @@
+@if "%~1"=="--detect-jboss-env" goto DETECTJBOSSENV
 @if "%~1"=="--git-default" goto GITDEFAULT
 @if "%~1"=="--penv-default" goto PENVDEFAULT
 :: ==========================
 ::     USER CONFIGURATION
 :: ==========================
-@set config_ver=1.7
-
-:: Project name to appear in CMD title and welcome screen
+@set config_ver=1.73
+:: Start JBOSS Server command prompt window minimized
+@set jboss_start_minimized=0
+:: Project title to appear in CMD title and welcome screen
 @set project_title=FPX - MyClear
-
 :: Username to appear in command shell
 @set username=Coder
 
@@ -48,11 +49,39 @@
 ::   ## cmd_7z_tarball_prefix  : (optional) prefix + Penv = file name
 ::   ##         Example output : prefix_office.tar.gz, prefix_sit.tar.gz
 
+:: ECLIPSE SUPPORT (requires GIT BRANCH MAPPING CONFIGURATION)
+:: Update Dependencies for Eclipse IDE on startup (build.gradle injection)
+@set enable_eclipse=0
+@set startup_reload_eclipse=0
+@set custom_gradle_build_reporting_filename=build.gradle.eclipse.reporting
+@set custom_gradle_build_refinement_filename=build.gradle.eclipse.refinement
 
-:: =======================================
-::    GIT DEFAULT BRANCH CONFIGURATION
-:: =======================================
+:: END OF CONFIG
 @goto :EOF
+
+:: =====================================================
+::        SMART JBOSS ENVIRONMENT CONFIGURATION
+:: Detect env base on branch name (reporting/refinement)
+:: =====================================================
+:DETECTJBOSSENV
+@call .preLoad.bat
+@set addedObj=
+:: Add your pairing below: [local branch]//[category]
+@call :ADD "reporting//reporting"
+@call :ADD "refinement_1.16//refinement"
+::@call :ADD "your_local_branch//jboss environment"
+::@call :ADD "your_local_branch//jboss environment"
+:: End of pairing
+@if "%addedObj%"=="" (goto :EOF)
+@call set tempPenv=%%addedObj:*%dev_branch%//=%%
+@set tempPenv=%tempPenv:;=&rem.%
+@if "%tempPenv%" NEQ "" (set branch_categ=%tempPenv%)
+@set addedObj=
+@goto :EOF
+
+:: ==============================================
+::    GIT DEFAULT BRANCH TO PULL CONFIGURATION
+:: ==============================================
 :GITDEFAULT
 @call .preLoad.bat
 @set addedObj=
@@ -62,20 +91,17 @@
 ::@call :ADD "your_local_branch//remote_branch_to_pull_from"
 ::@call :ADD "your_local_branch//remote_branch_to_pull_from"
 :: End of pairing
-@if "%addedObj%"=="" goto :EOF
+@if "%addedObj%"=="" (goto :EOF)
 @call set branch=%%addedObj:*%dev_branch%//=%%
 @set branch=%branch:;=&rem.%
 @set %~2=%branch%
 @set addedObj=
 @goto :EOF
 
-
-:: =======================================
-::    GRADLE DEFAULT PENV CONFIGURATION
-:: Note: Auto config Penv based on branch in use
-:: (Overwrites default in USER CONFIG)
-:: =======================================
-@goto :EOF
+:: ================================================================
+::                 GRADLE SMART PENV CONFIGURATION
+:: Auto detect Penv based on git branch, Overwrites GRADLE SETTINGS
+:: ================================================================
 :PENVDEFAULT
 @call .preLoad.bat
 @set addedObj=
@@ -86,7 +112,7 @@
 ::@call :ADD "your_local_branch//penv_to_use"
 ::@call :ADD "your_local_branch//penv_to_use"
 :: End of pairing
-@if "%addedObj%"=="" goto :EOF
+@if "%addedObj%"=="" (goto :EOF)
 @call set tempPenv=%%addedObj:*%dev_branch%//=%%
 @set tempPenv=%tempPenv:;=&rem.%
 @if "%tempPenv%" NEQ "" (set Penv=%tempPenv%)
