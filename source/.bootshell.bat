@@ -53,7 +53,7 @@
 @cmd /v:on /c echo(^^!input_cmd^^! | findstr /r "^[^|\&\^\\/?*:()<>\"]*$^" > nul
 @if %errorlevel% neq 0 (goto NOSENSITIVE)
 
-@goto PROCESSCOMMAND
+@goto INTERCEPTOR
 
 ::@CALLED
 :PREPARECOMMAND
@@ -61,19 +61,24 @@
 @goto :EOF
 
 ::@FLOW
-:PROCESSCOMMAND
+:INTERCEPTOR
 ::@echo Input command is "%input_cmd%" //debug
 @set "ucmd=#s#%ucmd%"
 
 ::redirect certain commands
 @if "%input_cmd%"=="cmd" (goto NOCMD)
 @if "%input_cmd%"=="--help--" (goto HELP)
-@if "%input_cmd%"=="cls" (set ucmd=welcome)
-@if "%input_cmd%"=="devcfg" (set ucmd=edit .bootup)
-@if "%input_cmd%"=="dev" (set ucmd=edit .bootshell)
-@if "%input_cmd%"=="help" (set ucmd=%ucmd:#s#help=help.bat%)
 @if "%input_cmd%"=="reboot" (goto ENDSHELL)
+@if "%input_cmd%"=="cls" (set ucmd=welcome & goto PROCESSCOMMAND)
+@if "%input_cmd%"=="devcfg" (set ucmd=edit .bootup  & goto PROCESSCOMMAND)
+@if "%input_cmd%"=="dev" (set ucmd=edit .bootshell  & goto PROCESSCOMMAND)
+@if "%input_cmd%"=="help" (set ucmd=%ucmd:#s#help=help.bat%  & goto PROCESSCOMMAND)
+@if "%input_cmd%"=="run" (call :RUNSWITCH %input_cmd%)
+@if "%input_cmd%"=="run2" (call :RUNSWITCH %input_cmd%)
+@goto PROCESSCOMMAND
 
+::@FLOW
+:PROCESSCOMMAND
 :: handle '--help--' arguments
 @set "ucmd=%ucmd:#s#=%"
 @set "ucmd=%ucmd:--help--="/?"%"
@@ -87,6 +92,14 @@
 ::@CALLED
 :EXECUTE
 @call %*
+@goto :EOF
+
+::@CALLED
+:RUNSWITCH
+@if "%jboss_start_autoswitch_env%"=="0" (goto :EOF)
+@echo [33mSmart Switching RUN/RUN2 Command...[0m
+@if "%branch_categ%"=="refinement" (if "%~1"=="run2" (set ucmd=run & echo Changed to^: RUN) else (echo No change needed.))
+@if "%branch_categ%"=="reporting" (if "%~1"=="run" (set ucmd=run2 & echo Changed to^: RUN2) else (echo No change needed.))
 @goto :EOF
 
 :HELP

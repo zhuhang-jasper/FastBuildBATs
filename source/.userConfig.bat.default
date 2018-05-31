@@ -4,9 +4,10 @@
 :: ==========================
 ::     USER CONFIGURATION
 :: ==========================
-@set config_ver=1.73
+@set config_ver=1.74
 :: Start JBOSS Server command prompt window minimized
 @set jboss_start_minimized=0
+@set jboss_start_autoswitch_env=1
 :: Project title to appear in CMD title and welcome screen
 @set project_title=FPX - MyClear
 :: Username to appear in command shell
