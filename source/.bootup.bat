@@ -2,6 +2,7 @@
 @set version=1.7.3
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
+@set mode=user
 :: -----------------------
 :: ##User Configuration
 :: -----------------------
@@ -87,7 +88,16 @@
 @if not defined jboss_fpxnew_batname echo ERROR: FPXNEW_BATNAME not defined! & set error_config=1
 @if defined jboss_fpxnew_batname (if not exist "%jboss_bin_dir%\%jboss_fpxnew_batname%" @echo ERROR: FPXNEW batch file is missing! & set error_config=1)
 @if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
+:: -----------------------
+@if "%enable_eclipse%"=="0" goto SKIPECLIPSE
+@echo ##Validating Eclipse settings...
+@if not defined custom_gradle_build_reporting_filename echo ERROR: CUSTOM_GRADLE_BUILD_REPORTING_FILENAME not defined! & set error_config=1
+@if defined custom_gradle_build_reporting_filename (if not exist "%fpx_ejb_dir%\%custom_gradle_build_reporting_filename%" @echo ERROR: CUSTOM GRADLE.BUILD REPORTING file is missing! & set error_config=1)
+@if not defined custom_gradle_build_refinement_filename echo ERROR: CUSTOM_GRADLE_BUILD_REFINEMENT_FILENAME not defined! & set error_config=1
+@if defined custom_gradle_build_refinement_filename (if not exist "%fpx_ejb_dir%\%custom_gradle_build_refinement_filename%" @echo ERROR: CUSTOM GRADLE.BUILD REFINEMENT file is missing! & set error_config=1)
+@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 
+:SKIPECLIPSE
 :: -----------------------
 :: ##Program Configuration
 :: -----------------------
@@ -108,7 +118,7 @@
 @title %toolname% (%project_title%) [%dev_branch%]
 @call welcome.bat
 @echo on
-@if "%startup_reload_eclipse%"=="1" (call "eclipse.bat")
+@if "%enable_eclipse%"=="1" (if "%startup_reload_eclipse%"=="1" (call "eclipse.bat"))
 @goto :EOF
 
 :AFTERCONFIG

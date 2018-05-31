@@ -1,6 +1,6 @@
 @call .preLoad.bat
 @echo off
-cls
+if not "%mode%"=="dev" cls
 echo  --------------------------------------------------------------------
 echo                      [33m^<^<  %toolname%  ^>^>[0m   
 echo                 zhuhang's Fast Build + Deploy Commands  

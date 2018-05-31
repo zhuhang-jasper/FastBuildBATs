@@ -11,18 +11,24 @@
 ::Assume already applied Eclipse plugin
 @if exist "build.gradle.bak" (echo [33mEclipse already configured.[0m & popd & goto :EOF)
 @echo [31mSetup ECLIPSE dependencies[0m
-@echo [33mBack up build.gradle...[0m
-@copy build.gradle "build.gradle.bak" /Y >nul
 @if "%branch_categ%"=="reporting" goto REPORTING
 @if "%branch_categ%"=="refinement" goto REFINEMENT
+@echo [33mFAILED: Unable to detect branch category.[0m
+@goto :EOF
+
+:BACKUP
+@echo [33mBack up build.gradle...[0m
+@copy build.gradle "build.gradle.bak" /Y >nul
 @goto :EOF
 
 :REPORTING
+@call :BACKUP
 @echo [33mUpdating to '%custom_gradle_build_reporting_filename%' ...[0m
 @copy %custom_gradle_build_reporting_filename% "build.gradle" /Y >nul
 @goto ECLIPSE
 
 :REFINEMENT
+@call :BACKUP
 @echo [33mUpdating to '%custom_gradle_build_refinement_filename%' ...[0m
 @copy %custom_gradle_build_refinement_filename% "build.gradle" /Y >nul
 @goto ECLIPSE

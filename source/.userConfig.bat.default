@@ -1,6 +1,6 @@
-@if "%~1"=="--detect-jboss-env" goto DETECTJBOSSENV
-@if "%~1"=="--git-default" goto GITDEFAULT
-@if "%~1"=="--penv-default" goto PENVDEFAULT
+@if "%~1"=="--detect-jboss-env" (goto BRANCHENV)
+@if "%~1"=="--git-default" (goto GITDEFAULT)
+@if "%~1"=="--penv-default" (goto PENVDEFAULT)
 :: ==========================
 ::     USER CONFIGURATION
 :: ==========================
@@ -12,11 +12,13 @@
 :: Username to appear in command shell
 @set username=Coder
 
-:: PROGRAM DEPENDENCY PATHS (Not needed if already set in environment path)
-@set dir_7zip=C:\Program Files\7-Zip
+:: PROGRAM DEPENDENCY PATHS (Mandatory, Comment out if already set in environment path)
 @set dir_git=C:\Program Files\Git\cmd
 @set dir_gradle=D:\gradle\gradle-2.14.1\bin
-::@set dir_gradle=D:\gradle\gradle-2.14.1\bin
+@set dir_7zip=C:\Program Files\7-Zip
+::   ## dir_git : needed for command PULL
+::   ## dir_gradle : needed for command CB,BR,CBR
+::   ## dir_7zip : needed for command TARGZ, EXTARGZ
 
 :: PROJECT SOURCE CODE AND JBOSS PATH SETTINGS 
 @set jboss_root=D:\some_local_path_to\jboss-eap-6.4
@@ -53,6 +55,7 @@
 :: Update Dependencies for Eclipse IDE on startup (build.gradle injection)
 @set enable_eclipse=0
 @set startup_reload_eclipse=0
+::EJB gradle.build customize
 @set custom_gradle_build_reporting_filename=build.gradle.eclipse.reporting
 @set custom_gradle_build_refinement_filename=build.gradle.eclipse.refinement
 
@@ -63,7 +66,8 @@
 ::        SMART JBOSS ENVIRONMENT CONFIGURATION
 :: Detect env base on branch name (reporting/refinement)
 :: =====================================================
-:DETECTJBOSSENV
+:BRANCHENV
+@echo Reading SMART JBOSS ENVIRONMENT CONFIGURATION...
 @call .preLoad.bat
 @set addedObj=
 :: Add your pairing below: [local branch]//[category]
@@ -83,6 +87,7 @@
 ::    GIT DEFAULT BRANCH TO PULL CONFIGURATION
 :: ==============================================
 :GITDEFAULT
+@echo Reading GIT DEFAULT BRANCH TO PULL CONFIGURATION...
 @call .preLoad.bat
 @set addedObj=
 :: Add your pairing below: [local branch]//[remote branch]
@@ -103,6 +108,7 @@
 :: Auto detect Penv based on git branch, Overwrites GRADLE SETTINGS
 :: ================================================================
 :PENVDEFAULT
+@echo Reading GRADLE SMART PENV CONFIGURATION...
 @call .preLoad.bat
 @set addedObj=
 :: Add your pairing below: [local branch]//[Penv]
