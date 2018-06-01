@@ -73,8 +73,6 @@
 @if "%input_cmd%"=="devcfg" (set ucmd=edit .bootup  & goto PROCESSCOMMAND)
 @if "%input_cmd%"=="dev" (set ucmd=edit .bootshell  & goto PROCESSCOMMAND)
 @if "%input_cmd%"=="help" (set ucmd=%ucmd:#s#help=help.bat%  & goto PROCESSCOMMAND)
-@if "%input_cmd%"=="run" (call :RUNSWITCH %input_cmd%)
-@if "%input_cmd%"=="run2" (call :RUNSWITCH %input_cmd%)
 @goto PROCESSCOMMAND
 
 ::@FLOW
@@ -84,6 +82,8 @@
 @set "ucmd=%ucmd:--help--="/?"%"
 @call .isHelp.bat %ucmd%
 @if "%isHelp%"=="true" (goto HELPCMD)
+@if "%input_cmd%"=="run" (call :RUNSWITCH %input_cmd%)
+@if "%input_cmd%"=="run2" (call :RUNSWITCH %input_cmd%)
 @call :EXECUTE %ucmd%
 ::AutoReboot after UserConfig
 @if "%input_cmd%"=="config" (goto ENDSHELL)
