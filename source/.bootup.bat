@@ -1,5 +1,5 @@
 :BOOTUP
-@set version=1.7.4
+@set version=1.7.5
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
 @set mode=user
@@ -22,7 +22,7 @@
 @set path=%path_default%;%root%;C:\windows\explorer.exe
 :: -----------------------
 @echo ##Checking config file version...
-@set min_config_ver=1.74
+@set min_config_ver=1.75
 @if not defined config_ver set error_config=1
 @if defined config_ver (@if not [%config_ver%]==[%min_config_ver%] set error_config=1)
 @if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit

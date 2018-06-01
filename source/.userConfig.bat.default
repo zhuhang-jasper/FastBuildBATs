@@ -4,10 +4,14 @@
 :: ==========================
 ::     USER CONFIGURATION
 :: ==========================
-@set config_ver=1.74
+@set config_ver=1.75
 :: Start JBOSS Server command prompt window minimized
 @set jboss_start_minimized=0
+:: Auto switch to correct RUN/RUN2 based on reporting/refinement
 @set jboss_start_autoswitch_env=1
+:: If cannot idenfity last executed JBOSS command, auto detect RUN/RUN2
+@set jboss_rerun_autoswitch_env=1
+
 :: Project title to appear in CMD title and welcome screen
 @set project_title=FPX - MyClear
 :: Username to appear in command shell
