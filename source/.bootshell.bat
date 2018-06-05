@@ -69,10 +69,12 @@
 @if "%input_cmd%"=="cmd" (goto NOCMD)
 @if "%input_cmd%"=="--help--" (goto HELP)
 @if "%input_cmd%"=="reboot" (goto ENDSHELL)
+@if "%input_cmd%"=="exit" (goto EXIT)
 @if "%input_cmd%"=="cls" (set ucmd=welcome & goto PROCESSCOMMAND)
-@if "%input_cmd%"=="devcfg" (set ucmd=edit .bootup  & goto PROCESSCOMMAND)
 @if "%input_cmd%"=="dev" (set ucmd=edit .bootshell  & goto PROCESSCOMMAND)
+@if "%input_cmd%"=="devcfg" (set ucmd=edit .bootup  & goto PROCESSCOMMAND)
 @if "%input_cmd%"=="help" (set ucmd=%ucmd:#s#help=help.bat%  & goto PROCESSCOMMAND)
+
 @goto PROCESSCOMMAND
 
 ::@FLOW
@@ -136,4 +138,8 @@
 ::@if "%exitlevel%" NEQ "1" (goto BOOT)
 @goto SHELL
 
+:EXIT
+@call "kill.bat"
+@echo Press any key to exit. . . 
+@pause 1>NUL
 @exit
