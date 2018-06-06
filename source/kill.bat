@@ -21,5 +21,5 @@
 @goto :EOF
 
 :NOTHING
-@echo [33mINFO: No on-going JBOSS server to be terminated. [0m
+@echo INFO: No on-going JBOSS server to be terminated.
 @goto :EOF
