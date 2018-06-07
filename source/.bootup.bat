@@ -1,5 +1,5 @@
 :BOOTUP
-@set version=1.7.5
+@set version=1.7.6
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
 @set mode=user
@@ -22,9 +22,9 @@
 @set path=%path_default%;%root%;C:\windows\explorer.exe
 :: -----------------------
 @echo ##Checking config file version...
-@set min_config_ver=1.75
+@set min_config_ver=1.76
 @if not defined config_ver set error_config=1
-@if defined config_ver (@if not [%config_ver%]==[%min_config_ver%] set error_config=1)
+@if defined config_ver (@if not [%config_ver%] GEQ [%min_config_ver%] set error_config=1)
 @if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit
 :: -----------------------
 @echo ##Setting some default values...
@@ -34,6 +34,8 @@
 @if not defined startup_reload_eclipse set startup_reload_eclipse=0
 @if not defined jboss_start_minimized set jboss_start_minimized=0
 @if not defined jboss_start_autoswitch_env set jboss_start_autoswitch_env=0
+@if not defined gradle_enable_debug set gradle_enable_debug=0
+@if not defined gradle_cmd_debug_flag set gradle_cmd_debug_flag=
 @if not defined cmd_7z_tarball_prefix set cmd_7z_tarball_prefix=
 :: -----------------------
 @echo ##Validating custom text editor...

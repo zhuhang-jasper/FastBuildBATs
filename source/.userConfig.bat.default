@@ -4,7 +4,7 @@
 :: ==========================
 ::     USER CONFIGURATION
 :: ==========================
-@set config_ver=1.75
+@set config_ver=1.76
 :: Start JBOSS Server command prompt window minimized
 @set jboss_start_minimized=0
 :: Auto switch to correct RUN/RUN2 based on reporting/refinement
@@ -43,6 +43,8 @@
 ::           : %Penv% will be auto added at end of commands below:
 @set gradle_cmd_cleanbuild=gradle clean build -Penv=
 @set gradle_cmd_buildrelease=gradle buildRelease -Penv=
+@set gradle_enable_debug=0
+@set gradle_cmd_debug_flag=--stacktrace -debug
 ::   ## gradle_cmd_*  : gradle command to compile source code to WAR and EAR
 
 :: TEXT EDITOR SETTINGS

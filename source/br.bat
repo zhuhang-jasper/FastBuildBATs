@@ -7,5 +7,10 @@
 :BUILD
 @echo [33mGRADLE ^> %fpx_admin_dir%\%gradle_cmd_buildrelease%%Penv% [0m
 @cd %fpx_admin_dir%
-@call %gradle_cmd_buildrelease%%Penv%
+
+@setlocal
+@set command=%gradle_cmd_buildrelease%%Penv%
+@if "%gradle_enable_debug%"=="1" set command=%command% %gradle_cmd_debug_flag%
+@call %command%
+@endlocal
 @popd
