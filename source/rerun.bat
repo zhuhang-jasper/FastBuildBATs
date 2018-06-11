@@ -16,7 +16,7 @@
 @goto :EOF
 
 :NEGATIVE
-@if "%jboss_rerun_autoswitch_env%"=="1" (goto RUNSWITCH)
+@if "%jboss_rerun_autoswitch%"=="1" (goto RUNSWITCH)
 @echo [31mFAILED: Could not perform last run... Maybe you just started/rebooted this tool.
 @echo         Please Enter ^"run^" or ^"run2^" to start.[0m
 @goto :EOF

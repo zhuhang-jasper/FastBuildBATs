@@ -85,7 +85,7 @@
 @echo USAGE:
 @echo     PULL branch [/?]
 @echo         branch           (Optional) Specifies branch name for git pull.
-@echo                          If empty, default branch is used.
+@echo                          If empty, default branch is used (USERCONFIG).
 @echo.
 @echo   Use command "config" to set default branch. 
 @echo.
@@ -208,6 +208,18 @@
 @echo                         and produces 'war.dodeploy' and 'ear.dodeploy'
 @goto ENDHELP
 
+:BD
+@echo One-click rebuild ^& redeploy. Gradle rebuilds WAR ^& EAR then copies
+@echo to ^<JBOSS_DEPLOYMENTS^>.
+@echo.
+@echo Following Commands executed in order:
+@echo   CBR-ALL, DEPLOY
+@echo.
+@echo   ^<JBOSS_DEPLOYMENTS^>        =  "%jboss_deploy_dir%"
+@echo.
+@echo   Use command "2r/3r" to start JBOSS after deploying.
+@goto ENDHELP
+
 :RUN
 @echo Start JBOSS server using ^<JBOSS_UAT_BATCHFILE^> and deploy 
 @echo WAR ^& EAR in ^<JBOSS_DEPLOYMENTS^>. Environment ^= 'UAT'.
@@ -244,7 +256,7 @@
 @echo.
 @echo   ^<JBOSS_DEPLOYMENTS^>        =  "%jboss_deploy_dir%"
 @echo.
-@echo   Use command "3r" to include .
+@echo   Use command "3r" to include EAR.
 @goto ENDHELP
 
 :3R
@@ -351,6 +363,10 @@
 @goto ENDHELP
 
 :EXTARGZ
+@setlocal
+@set "tempPenv="
+@if "%branch_categ%"=="refinement" (set tempPenv=%extargz_penv_refinement%)
+@if "%branch_categ%"=="reporting" (set tempPenv=%extargz_penv_reporting%)
 @echo Gradle builds WAR ^& EAR, then exports together with 'dodeploy' markers into
 @echo a '.tar.gz' file using 7zip, without replacing any local JBOSS deployments. 
 @echo However, previous GRADLE build distributions will be overwritten.
@@ -360,9 +376,14 @@
 @echo     extargz Penvironment [/soft /war] [/?]
 @echo         Penvironment        Specifies the environment to perform Gradle build.
 @echo                             Also known as Penv. Options such as:
-@echo                             - dev, local, office, office_phase2, sit
+@echo                              'dev, local, office, office_phase2, sit'
+@echo                             If empty, default extargz Penv is used (USERCONFIG).
+@echo.
+@echo   Use command "config" to set default Penv. 
 @echo.
 @echo Examples:
+@echo   ^> extargz                 ... Uses default extargz Penv defined in config.
+@echo                                 Current default = '%tempPenv%'
 @echo   ^> extargz office          ... Gradle build WAR ^& EAR (Penv=office), and
 @echo                                 produces a 'office.tar.gz'.
 @echo   ^> extargz office /war     ... Only Gradle build WAR (Penv=office), takes
@@ -371,14 +392,17 @@
 @echo                                 distributions.
 @echo                                 WAR changes from LEAF ^& UP-RES are included.
 @echo.
-@echo [33mFavourites:
+@echo [33mSuggestions:
 @echo   ^> extargz office            ... For refinement office deployment.
 @echo   ^> extargz office_phase2     ... For reporting office deployment.[0m
+@endlocal
 @goto ENDHELP
 
 :ECLIPSE
-@echo Updates Eclipse IDE dependencies in ^<FPX_EJB_PATH^> based on 
-@echo branch in use and specified custom build.prop.
+@echo Updates gradle.build in ^<FPX_EJB_PATH^> with the custom build.prop 
+@echo defined in USERCONFIG based on JBOSS env. Upon finishing task, 
+@echo refresh project in Eclipse IDE to refetch correct dependencies.
+@echo Note: gradle.build file will be backed up.
 @echo.
 @echo USAGE:
 @echo     eclipse [/clean /r] [/?]
@@ -386,15 +410,16 @@
 @echo         /r          Undo modification of build.gradle file.
 @echo.
 @echo   ^<FPX_EJB_PATH^>    = "%fpx_ejb_dir%"
-@echo   REPORTING         =  "build.gradle.eclipse.reporting"
-@echo   REFINEMENT        =  "build.gradle.eclipse.refinement"
+@echo   REPORTING file      =  "build.gradle.eclipse.reporting"
+@echo   REFINEMENT file     =  "build.gradle.eclipse.refinement"
 @echo.
 @echo   Use command "config" to locate custom gradle.build file path. 
 @echo   Within custom file, please add eclipse-related modifications
 @echo.
 @echo Examples:
-@echo   ^> eclipe /clean     ... Undo changes made by ECLIPSE command.
-@echo   ^> eclipse -r        ... Undo changes made by ECLIPSE command.
+@echo   ^> eclipse           ... Back-ups ^& Updates gradle.build file.
+@echo   ^> eclipe /clean     ... Restore backed-up gradle.build.
+@echo   ^> eclipse -r        ... Restore backed-up gradle.build.
 @goto ENDHELP
 
 :: =========================

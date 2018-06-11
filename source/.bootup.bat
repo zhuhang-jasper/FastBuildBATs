@@ -1,8 +1,18 @@
+:: =====================================================
+::  ___        _   ___      _ _    _ ___   _ _____   
+:: | __|_ _ __| |_| _ )_  _(_) |__| | _ ) /_\_   _|__
+:: | _/ _` (_-<  _| _ \ || | | / _` | _ \/ _ \| |(_-<
+:: |_|\__,_/__/\__|___/\_,_|_|_\__,_|___/_/ \_\_|/__/
+::                                                   
+:: =====================================================
+:: ##BOOTUP SCRIPT
+
 :BOOTUP
-@set version=1.7.6
+@set version=1.7.7
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
 @set mode=user
+@cls
 :: -----------------------
 :: ##User Configuration
 :: -----------------------
@@ -10,7 +20,6 @@
 @set userConfig_file=%root%\.userConfig.bat
 @set userConfig_default=%root%\.userConfig.bat.default
 @if not exist %userConfig_default% @echo FATAL: PROGRAM STARTED IN AN UNUSUAL WAY. PLEASE USE '.ALWAYSSTARTME.BAT' & goto :EOF
-@cls
 @echo ##Create new config file if necessary...
 @if not exist %userConfig_file% copy "%userConfig_default%" "%userConfig_file%"
 :: -----------------------
@@ -22,23 +31,21 @@
 @set path=%path_default%;%root%;C:\windows\explorer.exe
 :: -----------------------
 @echo ##Checking config file version...
-@set min_config_ver=1.76
+@set min_config_ver=1.77
 @if not defined config_ver set error_config=1
 @if defined config_ver (@if not [%config_ver%] GEQ [%min_config_ver%] set error_config=1)
 @if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit
 :: -----------------------
 @echo ##Setting some default values...
+::   1. INTERFACE SETTINGS
 @if not defined username set username=Coder
-@if not defined project_title set project_title=Project
-@if not defined enable_eclipse set enable_eclipse=0
-@if not defined startup_reload_eclipse set startup_reload_eclipse=0
-@if not defined jboss_start_minimized set jboss_start_minimized=0
-@if not defined jboss_start_autoswitch_env set jboss_start_autoswitch_env=0
-@if not defined gradle_enable_debug set gradle_enable_debug=0
-@if not defined gradle_cmd_debug_flag set gradle_cmd_debug_flag=
-@if not defined cmd_7z_tarball_prefix set cmd_7z_tarball_prefix=
+@if not defined fancy_dashboard set fancy_dashboard=1
+@if not defined fancy_theme set "fancy_theme=Green"
+@if not defined cls_keep_dashboard set cls_keep_dashboard=1
+@if not defined exit_splash_off set exit_splash_off=0
 :: -----------------------
-@echo ##Validating custom text editor...
+::   2. CUSTOM TEXT EDITOR SETTINGS
+@echo ##Validating custom text editor settings...
 @if defined dir_notepad set path=%PATH%;%dir_notepad%
 @if not defined notepad_exec set notepad_exec=notepad
 @if defined dir_notepad (if not exist "%dir_notepad%" @echo WARNING: DIR_NOTEPAD path is missing! & pause)
@@ -47,20 +54,23 @@
 @if [%error_config%]==[1] @echo Please edit ^".userConfig.bat^" file manually . & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit
 @set isConfigLoaded=yes
 :: -----------------------
-@echo ##Validating dependency path settings...
-@if defined dir_7zip (if not exist "%dir_7zip%" @echo ERROR: DIR_7ZIP path is missing! & set error_config=1)
+::   3. PROGRAM DEPENDENCIES PATH SETTINGS
+@echo ##Validating dependencies path settings...
 @if defined dir_git (if not exist "%dir_git%" @echo ERROR: DIR_GIT path is missing! & set error_config=1)
 @if defined dir_gradle (if not exist "%dir_gradle%" @echo ERROR: DIR_GRADLE path is missing! & set error_config=1)
+@if defined dir_7zip (if not exist "%dir_7zip%" @echo ERROR: DIR_7ZIP path is missing! & set error_config=1)
 @if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 @if defined dir_git set path=%PATH%;%dir_git%
 @if defined dir_gradle set path=%PATH%;%dir_gradle%
 @if defined dir_7zip set path=%PATH%;%dir_7zip%
 :: -----------------------
-@echo ##Validating project path settings...
-@if not defined jboss_root echo ERROR: JBOSS_ROOT not defined! & set error_config=1
-@if defined jboss_root (if not exist %jboss_root% @echo ERROR: JBOSS_ROOT path is missing! & set error_config=1)
+::   4. PROJECT SETTINGS
+@echo ##Validating project settings...
+@if not defined project_title set project_title=Project
 @if not defined fpx_root echo ERROR: FPX_ROOT not defined! & set error_config=1
 @if defined fpx_root (if not exist %fpx_root% @echo ERROR: FPX_ROOT path is missing! & set error_config=1)
+@if not defined jboss_root echo ERROR: JBOSS_ROOT not defined! & set error_config=1
+@if defined jboss_root (if not exist %jboss_root% @echo ERROR: JBOSS_ROOT path is missing! & set error_config=1)
 @if not defined local_temp_log echo ERROR: LOCAL_TEMP_LOG not defined! & set error_config=1
 @if defined local_temp_log (if not exist %local_temp_log% @echo ERROR: LOCAL_TEMP_LOG path is missing! & set error_config=1)
 @if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
@@ -75,6 +85,18 @@
 @set fpx_resource_dir=%fpx_admin_dir%\fpx-admin-webview\src\main\resources
 @set fpx_thymeleaf_dir=%fpx_resource_dir%\templates
 :: -----------------------
+::   5. JBOSS SETTINGS
+@echo ##Validating JBOSS settings...
+@if not defined jboss_start_minimized set jboss_start_minimized=0
+@if not defined jboss_start_autoswitch_env set jboss_start_autoswitch_env=1
+@if not defined jboss_rerun_autoswitch set jboss_rerun_autoswitch=1
+@if not defined jboss_uat_batname echo ERROR: UAT_BATNAME not defined! & set error_config=1
+@if defined jboss_uat_batname (if not exist "%jboss_bin_dir%\%jboss_uat_batname%" @echo ERROR: UAT batch file is missing! & set error_config=1)
+@if not defined jboss_fpxnew_batname echo ERROR: FPXNEW_BATNAME not defined! & set error_config=1
+@if defined jboss_fpxnew_batname (if not exist "%jboss_bin_dir%\%jboss_fpxnew_batname%" @echo ERROR: FPXNEW batch file is missing! & set error_config=1)
+@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
+:: -----------------------
+::   6. GRADLE SETTINGS
 @echo ##Validating Gradle settings...
 @if not defined Penv echo ERROR: PENV not defined! & set error_config=1
 @if defined Penv (if not exist "%fpx_admin_dir%\config_%Penv%.groovy" @echo ERROR: config_%Penv%.groovy file is missing in fpx-admin folder! & set error_config=1)
@@ -83,24 +105,27 @@
 @if defined gradle_cmd_cleanbuild (if "%gradle_cmd_cleanbuild%"=="" @echo ERROR: CMD_CLEANBUILD is blank! & set error_config=1)
 @if not defined gradle_cmd_buildrelease echo ERROR: CMD_BUILDRELEASE not defined! & set error_config=1
 @if defined gradle_cmd_buildrelease (if "%gradle_cmd_buildrelease%"=="" @echo ERROR: CMD_BUILDRELEASE is blank! & set error_config=1)
+@if not defined gradle_enable_debug set gradle_enable_debug=0
+@if not defined gradle_cmd_debug_flag set gradle_cmd_debug_flag=
 @if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 :: -----------------------
-@echo ##Validating JBOSS batch file settings...
-@if not defined jboss_uat_batname echo ERROR: UAT_BATNAME not defined! & set error_config=1
-@if defined jboss_uat_batname (if not exist "%jboss_bin_dir%\%jboss_uat_batname%" @echo ERROR: UAT batch file is missing! & set error_config=1)
-@if not defined jboss_fpxnew_batname echo ERROR: FPXNEW_BATNAME not defined! & set error_config=1
-@if defined jboss_fpxnew_batname (if not exist "%jboss_bin_dir%\%jboss_fpxnew_batname%" @echo ERROR: FPXNEW batch file is missing! & set error_config=1)
-@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
+::   7. EXPORT DEPLOYMENT ZIP SETTINGS
+@if not defined extargz_penv_refinement set extargz_penv_refinement=
+@if not defined extargz_penv_reporting set extargz_penv_reporting=
+@if not defined cmd_7z_tarball_prefix set cmd_7z_tarball_prefix=
 :: -----------------------
+::   8. ECLIPSE INTEGRATION SETTINGS
+@if not defined enable_eclipse set enable_eclipse=0
+@if not defined startup_reload_eclipse set startup_reload_eclipse=0
 @if "%enable_eclipse%"=="0" goto SKIPECLIPSE
-@echo ##Validating Eclipse settings...
+@echo ##Validating Eclipse integration settings...
 @if not defined custom_gradle_build_reporting_filename echo ERROR: CUSTOM_GRADLE_BUILD_REPORTING_FILENAME not defined! & set error_config=1
 @if defined custom_gradle_build_reporting_filename (if not exist "%fpx_ejb_dir%\%custom_gradle_build_reporting_filename%" @echo ERROR: CUSTOM GRADLE.BUILD REPORTING file is missing! & set error_config=1)
 @if not defined custom_gradle_build_refinement_filename echo ERROR: CUSTOM_GRADLE_BUILD_REFINEMENT_FILENAME not defined! & set error_config=1
 @if defined custom_gradle_build_refinement_filename (if not exist "%fpx_ejb_dir%\%custom_gradle_build_refinement_filename%" @echo ERROR: CUSTOM GRADLE.BUILD REFINEMENT file is missing! & set error_config=1)
 @if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
-
 :SKIPECLIPSE
+
 :: -----------------------
 :: ##Program Configuration
 :: -----------------------
@@ -121,9 +146,18 @@
 @title %toolname% (%project_title%) [%dev_branch%]
 @call welcome.bat
 @echo on
-@if "%enable_eclipse%"=="1" (if "%startup_reload_eclipse%"=="1" (call "eclipse.bat"))
-@goto :EOF
+@goto STARTUP
 
 :AFTERCONFIG
 @goto BOOTUP
+@goto :EOF
+
+:STARTUP
+@echo.
+@echo [33mStartup Tasks:[0m
+@if "%enable_eclipse%"=="1" (if "%startup_reload_eclipse%"=="1" (call :STARTUP_ECLIPSE))
+@goto :EOF
+
+:STARTUP_ECLIPSE
+@call "eclipse.bat" "/autostart"
 @goto :EOF

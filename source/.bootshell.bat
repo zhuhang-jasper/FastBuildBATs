@@ -1,6 +1,12 @@
-:: -----------------------
-:: ##Shell
-:: -----------------------
+:: =====================================================
+::  ___        _   ___      _ _    _ ___   _ _____   
+:: | __|_ _ __| |_| _ )_  _(_) |__| | _ ) /_\_   _|__
+:: | _/ _` (_-<  _| _ \ || | | / _` | _ \/ _ \| |(_-<
+:: |_|\__,_/__/\__|___/\_,_|_|_\__,_|___/_/ \_\_|/__/
+::                                                   
+:: =====================================================
+:: ##SHELL SCRIPT
+
 :SHELL
 @cd /d %~dp0
 @call .bootup.bat
@@ -70,7 +76,7 @@
 @if "%input_cmd%"=="--help--" (goto HELP)
 @if "%input_cmd%"=="reboot" (goto ENDSHELL)
 @if "%input_cmd%"=="exit" (goto EXIT)
-@if "%input_cmd%"=="cls" (set ucmd=welcome & goto PROCESSCOMMAND)
+@if "%input_cmd%"=="cls" (if "%cls_keep_dashboard%"=="1" (set ucmd=welcome) & goto PROCESSCOMMAND)
 @if "%input_cmd%"=="dev" (set ucmd=edit .bootshell  & goto PROCESSCOMMAND)
 @if "%input_cmd%"=="devcfg" (set ucmd=edit .bootup  & goto PROCESSCOMMAND)
 @if "%input_cmd%"=="help" (set ucmd=%ucmd:#s#help=help.bat%  & goto PROCESSCOMMAND)
@@ -98,7 +104,7 @@
 
 ::@CALLED
 :RUNSWITCH
-@if "%jboss_start_autoswitch_env%"=="0" (goto :EOF)
+@if "%jboss_start_autoswitch%"=="0" (goto :EOF)
 @echo [33mSmart Switching RUN/RUN2 Command...[0m
 @if "%branch_categ%"=="refinement" (if "%~1"=="run2" (set ucmd=run & echo Changed to^: RUN) else (echo No change needed.))
 @if "%branch_categ%"=="reporting" (if "%~1"=="run" (set ucmd=run2 & echo Changed to^: RUN2) else (echo No change needed.))
@@ -139,6 +145,7 @@
 @goto SHELL
 
 :EXIT
+@if not "%fancy_dashboard%"=="1" (if not "%exit_splash_off%"=="1" (@call ".splash.bat" "/exit"))
 @call "kill.bat"
 @echo Press any key to exit. . . 
 @pause 1>NUL

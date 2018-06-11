@@ -1,83 +1,149 @@
+:: =====================================================
+::  ___        _   ___      _ _    _ ___   _ _____   
+:: | __|_ _ __| |_| _ )_  _(_) |__| | _ ) /_\_   _|__
+:: | _/ _` (_-<  _| _ \ || | | / _` | _ \/ _ \| |(_-<
+:: |_|\__,_/__/\__|___/\_,_|_|_\__,_|___/_/ \_\_|/__/
+::                                                   
+:: =====================================================
+:: ##USERCONFIG SCRIPT
+@set config_ver=1.77
 @if "%~1"=="--detect-jboss-env" (goto BRANCHENV)
 @if "%~1"=="--git-default" (goto GITDEFAULT)
 @if "%~1"=="--penv-default" (goto PENVDEFAULT)
-:: ==========================
-::     USER CONFIGURATION
-:: ==========================
-@set config_ver=1.76
-:: Start JBOSS Server command prompt window minimized
-@set jboss_start_minimized=0
-:: Auto switch to correct RUN/RUN2 based on reporting/refinement
-@set jboss_start_autoswitch_env=1
-:: If cannot idenfity last executed JBOSS command, auto detect RUN/RUN2
-@set jboss_rerun_autoswitch_env=1
 
-:: Project title to appear in CMD title and welcome screen
-@set project_title=FPX - MyClear
-:: Username to appear in command shell
+:: =====================================================
+:: ======= CONFIGURATION PART I : USER SETTINGS ========
+:: =====================================================
+::   1. INTERFACE SETTINGS
+:: ## username        : Text at command shell
+:: ## fancy_dashboard : Fancy dashboard using ASCII art
+::                    : If off, splash will show on exit
+:: ## fancy_theme     : Theme for fancy dashboard/splash (Green/Holland)
+:: ## cls_keep_dashboard : Dashboard remains after Clear screen 'CLS'
+:: ## exit_splash_off : Force hide splash on exit
+:: =====================================================
 @set username=Coder
+@set fancy_dashboard=1
+@set "fancy_theme=Green"
+@set cls_keep_dashboard=1
+@set exit_splash_off=0
 
-:: PROGRAM DEPENDENCY PATHS (Mandatory, Comment out if already set in environment path)
+:: =====================================================
+::   2. CUSTOM TEXT EDITOR SETTINGS (Recommended)
+:: #  For command 'EDIT' and 'CONFIG'
+:: #  Leave empty to use default NOTEPAD.exe
+:: ## dir_notepad  : File path of custom editor
+:: ## notepad_exec : Command/EXE of editor. Default="notepad"
+:: =====================================================
+@set dir_notepad=C:\Program Files\TortoiseGit\bin
+@set notepad_exec=notepad2
+
+:: =====================================================
+::   3. PROGRAM DEPENDENCIES PATH SETTINGS (!IMPORTANT)
+:: #  Comment out if already set in environment path.
+:: ## dir_git    : command PULL & branch detection
+:: ## dir_gradle : command CB,BR,CBR
+:: ## dir_7zip   : command TARGZ, EXTARGZ
+:: =====================================================
 @set dir_git=C:\Program Files\Git\cmd
-@set dir_gradle=D:\gradle\gradle-2.14.1\bin
+@set dir_gradle=D:\gradle\gradle-2.3\bin
 @set dir_7zip=C:\Program Files\7-Zip
-::   ## dir_git : needed for command PULL
-::   ## dir_gradle : needed for command CB,BR,CBR
-::   ## dir_7zip : needed for command TARGZ, EXTARGZ
 
-:: PROJECT SOURCE CODE AND JBOSS PATH SETTINGS 
-@set jboss_root=D:\some_local_path_to\jboss-eap-6.4
-@set fpx_root=D:\some_local_path_to\paynet-fpx
-:: Local log path in Penv groovy config
-@set local_temp_log=C:\temp
+:: =====================================================
+::   4. PROJECT SETTINGS
+:: ## project_title   : Text at window title & status bar
+:: ## fpx_root        : Project source code root path
+:: ## jboss_root      : JBOSS root path
+:: ## local_temp_log  : JBOSS log path (refer groovy config)
+:: =====================================================
+@set project_title=FPX - MyClear
+@set "fpx_root=D:\some_local_path_to\paynet-fpx"
+@set "jboss_root=D:\some_local_path_to\jboss-eap-6.4"
+@set "local_temp_log=C:\temp"
 
-:: JBOSS SERVER START-UP BATCH FILE
+:: =====================================================
+::   5. JBOSS SETTINGS
+:: ## jboss_start_minimized  : Start JBOSS Server with CMD window minimized
+:: ## jboss_start_autoswitch : Switch RUN/RUN2 based on reporting/refinement
+:: ## jboss_rerun_autoswitch : Detect RUN/RUN2 if fails to perform last run
+:: ## jboss_uat_batname      : Batch file to start JBOSS in UAT env
+:: ## jboss_fpxnew_batname   : Batch file to start JBOSS in FPXNEW env
+::
+:: [X] A.JBOSS SMART ENVIRONMENT CONFIGURATION
+:: [ ] B.GRADLE SMART PENV CONFIGURATION
+:: [ ] C.GIT DEFAULT PULL BRANCH CONFIGURATION
+:: =====================================================
+@set jboss_start_minimized=0
+@set jboss_start_autoswitch=1
+@set jboss_rerun_autoswitch=1
 @set jboss_uat_batname=standalone-start-uat.bat
 @set jboss_fpxnew_batname=standalone-start-fpxnew.bat
 :: @set jboss_uat_batname=standalone-start-full.bat
 :: @set jboss_fpxnew_batname=standalone-start-full.bat
 
-:: GRADLE SETTINGS
+:: =====================================================
+::   6. GRADLE SETTINGS
+:: ## Penv : local//dev//office//office_phase2//sit//etc
+:: ## gradle_cmd_cleanbuild   : command CB to build WAR/EJB*
+:: ## gradle_cmd_buildrelease : command BR to build WAR/EJB*
+::    Note* : %Penv% will be auto appended at the end
+:: ## gradle_enable_debug     : use debug flag when CB/BR
+:: ## gradle_cmd_debug_flag   : text to append after command
+:: =====================================================
 @set Penv=local
-::   ## Penv : local//dev//office//office_phase2//sit...
-::           : %Penv% will be auto added at end of commands below:
 @set gradle_cmd_cleanbuild=gradle clean build -Penv=
 @set gradle_cmd_buildrelease=gradle buildRelease -Penv=
 @set gradle_enable_debug=0
 @set gradle_cmd_debug_flag=--stacktrace -debug
-::   ## gradle_cmd_*  : gradle command to compile source code to WAR and EAR
 
-:: TEXT EDITOR SETTINGS
-@set dir_notepad=C:\Program Files\TortoiseGit\bin
-@set notepad_exec=notepad2
-::   ## dir_notepad  : (optional) file path of custom editor to be used
-::   ## notepad_exec : (optional) command to run editor. if not set, default = "notepad" 
-
-:: 7ZIP SETTINGS
+:: =====================================================
+::   7. EXPORT DEPLOYMENT ZIP SETTINGS
+:: ## extargz_penv_reporting  : default gradle Penv for 'TARGZ' reporting
+:: ## extargz_penv_refinement : default gradle Penv for 'TARGZ' refinement
+:: ## cmd_7z_tarball_prefix   : zip filename prefix*
+::    Note* : [prefix][Penv].tar.gz  (Eg. deployments_office.tar.gz)
+::
+:: [X] A.JBOSS SMART ENVIRONMENT CONFIGURATION
+:: [ ] B.GRADLE SMART PENV CONFIGURATION
+:: [ ] C.GIT DEFAULT PULL BRANCH CONFIGURATION
+:: =====================================================
+@set extargz_penv_refinement=office
+@set extargz_penv_reporting=office_phase2
 @set cmd_7z_tarball_prefix=deployments_
-::   ## cmd_7z_tarball_prefix  : (optional) prefix + Penv = file name
-::   ##         Example output : prefix_office.tar.gz, prefix_sit.tar.gz
 
-:: ECLIPSE SUPPORT (requires GIT BRANCH MAPPING CONFIGURATION)
-:: Update Dependencies for Eclipse IDE on startup (build.gradle injection)
+:: =====================================================
+::   8. ECLIPSE INTEGRATION (GRADLE) SETTINGS
+:: #  Add Eclipse plugin to build.gradle to refresh dependencies for IDE
+:: ## enable_eclipse         : replace build.gradle
+:: ## startup_reload_eclipse : replace on startup
+:: ## custom_gradle_build_reporting_filename  : modified build.gradle
+:: ## custom_gradle_build_refinement_filename : modified build.gradle
+::
+:: [X] A.JBOSS SMART ENVIRONMENT CONFIGURATION
+:: [ ] B.GRADLE SMART PENV CONFIGURATION
+:: [ ] C.GIT DEFAULT PULL BRANCH CONFIGURATION
+:: =====================================================
 @set enable_eclipse=0
 @set startup_reload_eclipse=0
-::EJB gradle.build customize
 @set custom_gradle_build_reporting_filename=build.gradle.eclipse.reporting
 @set custom_gradle_build_refinement_filename=build.gradle.eclipse.refinement
 
-:: END OF CONFIG
+:: ==================== END PART I =====================
 @goto :EOF
 
 :: =====================================================
-::        SMART JBOSS ENVIRONMENT CONFIGURATION
-:: Detect env base on branch name (reporting/refinement)
+:: ===== CONFIGURATION PART II : BRANCH MAPPINGS  ======
+:: =====================================================
+::   A.JBOSS SMART ENVIRONMENT CONFIGURATION
+::  # Auto detect JBOSS environment base on branch 
+::    reporting/refinement
 :: =====================================================
 :BRANCHENV
-@echo Reading SMART JBOSS ENVIRONMENT CONFIGURATION...
+@echo Reading JBOSS SMART ENVIRONMENT CONFIGURATION...
 @call .preLoad.bat
 @set addedObj=
 :: Add your pairing below: [local branch]//[category]
+@call :ADD "master//reporting"
 @call :ADD "reporting//reporting"
 @call :ADD "refinement_1.16//refinement"
 ::@call :ADD "your_local_branch//jboss environment"
@@ -90,38 +156,19 @@
 @set addedObj=
 @goto :EOF
 
-:: ==============================================
-::    GIT DEFAULT BRANCH TO PULL CONFIGURATION
-:: ==============================================
-:GITDEFAULT
-@echo Reading GIT DEFAULT BRANCH TO PULL CONFIGURATION...
-@call .preLoad.bat
-@set addedObj=
-:: Add your pairing below: [local branch]//[remote branch]
-@call :ADD "master//master"
-@call :ADD "reporting//reporting"
-::@call :ADD "your_local_branch//remote_branch_to_pull_from"
-::@call :ADD "your_local_branch//remote_branch_to_pull_from"
-:: End of pairing
-@if "%addedObj%"=="" (goto :EOF)
-@call set branch=%%addedObj:*%dev_branch%//=%%
-@set branch=%branch:;=&rem.%
-@set %~2=%branch%
-@set addedObj=
-@goto :EOF
-
-:: ================================================================
-::                 GRADLE SMART PENV CONFIGURATION
-:: Auto detect Penv based on git branch, Overwrites GRADLE SETTINGS
-:: ================================================================
+:: =====================================================
+::   B.GRADLE SMART PENV CONFIGURATION
+::  # Auto detect gradle Penv based on branch
+::  # Overwrites Penv' property under 6.GRADLE SETTINGS
+:: =====================================================
 :PENVDEFAULT
 @echo Reading GRADLE SMART PENV CONFIGURATION...
 @call .preLoad.bat
 @set addedObj=
 :: Add your pairing below: [local branch]//[Penv]
-@call :ADD "reporting//office_phase2"
-@call :ADD "refinement_1.15//office"
 @call :ADD "master//sit"
+@call :ADD "reporting//office_phase2"
+@call :ADD "refinement_1.16//office"
 ::@call :ADD "your_local_branch//penv_to_use"
 ::@call :ADD "your_local_branch//penv_to_use"
 :: End of pairing
@@ -132,6 +179,30 @@
 @set addedObj=
 @goto :EOF
 
+:: =====================================================
+::   C.GIT DEFAULT PULL BRANCH CONFIGURATION
+::  # For command 'PULL' when no specified branch
+:: =====================================================
+:GITDEFAULT
+@echo Reading GIT DEFAULT PULL BRANCH CONFIGURATION...
+@call .preLoad.bat
+@set addedObj=
+:: Add your pairing below: [local branch]//[remote branch]
+@call :ADD "master//master"
+@call :ADD "reporting//reporting"
+@call :ADD "refinement_1.16//refinement"
+::@call :ADD "your_local_branch//remote_branch_to_pull_from"
+::@call :ADD "your_local_branch//remote_branch_to_pull_from"
+:: End of pairing
+@if "%addedObj%"=="" (goto :EOF)
+@call set branch=%%addedObj:*%dev_branch%//=%%
+@set branch=%branch:;=&rem.%
+@set %~2=%branch%
+@set addedObj=
+@goto :EOF
+
 :ADD
 @set addedObj=%addedObj%;%~1
 @goto :EOF
+
+:: ==================== END OF FILE ====================

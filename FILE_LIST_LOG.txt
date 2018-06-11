@@ -73,6 +73,7 @@
   rerun.bat                | 1.4.5 | zhuhang   | [kill],try last run-command[run/run2]
   ##end.bat                | 1.4.6 | zhuhang   | Kill JBOSS CMD
   kill.bat                 | 1.6.0 | zhuhang   | Smart Kill JBOSS CMD
+  bd.bat                   | 1.7.7 | zhuhang   | [cbr-all],[deploy]
 
 ::EXPLORER SHORTCUT::
   ear.bat                  | 1.0.0 | zhuhang   | Open EAR dir
