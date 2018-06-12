@@ -154,8 +154,7 @@
 @goto :EOF
 
 :STARTUP
-@echo.
-@echo [33mStartup Tasks:[0m
+@if "%enable_eclipse%"=="1" (if "%startup_reload_eclipse%"=="1" (echo. & echo [33mStartup Tasks:[0m))
 @if "%enable_eclipse%"=="1" (if "%startup_reload_eclipse%"=="1" (call :STARTUP_ECLIPSE))
 @goto :EOF
 
