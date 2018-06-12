@@ -36,8 +36,8 @@
 @if defined config_ver (@if not [%config_ver%] GEQ [%min_config_ver%] set error_config=1)
 @if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit
 :: -----------------------
-@echo ##Setting some default values...
 ::   1. INTERFACE SETTINGS
+@echo ##Validating Interface settings...
 @if not defined username set username=Coder
 @if not defined fancy_dashboard set fancy_dashboard=1
 @if not defined fancy_theme set "fancy_theme=Green"
@@ -45,7 +45,7 @@
 @if not defined exit_splash_off set exit_splash_off=0
 :: -----------------------
 ::   2. CUSTOM TEXT EDITOR SETTINGS
-@echo ##Validating custom text editor settings...
+@echo ##Validating Custom text editor settings...
 @if defined dir_notepad set path=%PATH%;%dir_notepad%
 @if not defined notepad_exec set notepad_exec=notepad
 @if defined dir_notepad (if not exist "%dir_notepad%" @echo WARNING: DIR_NOTEPAD path is missing! & pause)
@@ -55,7 +55,7 @@
 @set isConfigLoaded=yes
 :: -----------------------
 ::   3. PROGRAM DEPENDENCIES PATH SETTINGS
-@echo ##Validating dependencies path settings...
+@echo ##Validating Program dependencies path settings...
 @if defined dir_git (if not exist "%dir_git%" @echo ERROR: DIR_GIT path is missing! & set error_config=1)
 @if defined dir_gradle (if not exist "%dir_gradle%" @echo ERROR: DIR_GRADLE path is missing! & set error_config=1)
 @if defined dir_7zip (if not exist "%dir_7zip%" @echo ERROR: DIR_7ZIP path is missing! & set error_config=1)
@@ -65,7 +65,7 @@
 @if defined dir_7zip set path=%PATH%;%dir_7zip%
 :: -----------------------
 ::   4. PROJECT SETTINGS
-@echo ##Validating project settings...
+@echo ##Validating Project settings...
 @if not defined project_title set project_title=Project
 @if not defined fpx_root echo ERROR: FPX_ROOT not defined! & set error_config=1
 @if defined fpx_root (if not exist %fpx_root% @echo ERROR: FPX_ROOT path is missing! & set error_config=1)
@@ -110,11 +110,13 @@
 @if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 :: -----------------------
 ::   7. EXPORT DEPLOYMENT ZIP SETTINGS
+@echo ##Validating Export deployment zip settings...
 @if not defined extargz_penv_refinement set extargz_penv_refinement=
 @if not defined extargz_penv_reporting set extargz_penv_reporting=
 @if not defined cmd_7z_tarball_prefix set cmd_7z_tarball_prefix=
 :: -----------------------
 ::   8. ECLIPSE INTEGRATION SETTINGS
+@echo ##Validating Eclipse integration settings...
 @if not defined enable_eclipse set enable_eclipse=0
 @if not defined startup_reload_eclipse set startup_reload_eclipse=0
 @if "%enable_eclipse%"=="0" goto SKIPECLIPSE
@@ -130,7 +132,7 @@
 :: ##Program Configuration
 :: -----------------------
 @cd /d "%fpx_root%"
-@echo ##Setting program variables...
+@echo ##Preparing program...
 @set toolname=%tooltitle% v%version%
 @set jboss_env=
 @set dev_branch=
