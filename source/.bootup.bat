@@ -139,6 +139,7 @@
 @for /f %%i in ('git rev-parse --abbrev-ref HEAD') do @set dev_branch=%%i
 ::Set JBOSS ENV base on git branch
 @call .userConfig.bat --detect-jboss-env
+@if "%branch_categ%"=="" set "branch_categ=???"
 ::Set Penv base on git branch
 @call .userConfig.bat --penv-default
 @echo ##Starting program...
