@@ -8,7 +8,7 @@
 :: ##BOOTUP SCRIPT
 
 :BOOTUP
-@set version=1.7.7
+@set version=1.7.8
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
 @set mode=user
@@ -17,7 +17,7 @@
 :: ##User Configuration
 :: -----------------------
 @set root=%~dp0.
-@set userConfig_file=%root%\.userConfig.bat
+@set userConfig_file=%~1
 @set userConfig_default=%root%\.userConfig.bat.default
 @if not exist %userConfig_default% @echo FATAL: PROGRAM STARTED IN AN UNUSUAL WAY. PLEASE USE '.ALWAYSSTARTME.BAT' & goto :EOF
 @echo ##Create new config file if necessary...
@@ -31,7 +31,7 @@
 @set path=%path_default%;%root%;C:\windows\explorer.exe
 :: -----------------------
 @echo ##Checking config file version...
-@set min_config_ver=1.77
+@set min_config_ver=1.78
 @if not defined config_ver set error_config=1
 @if defined config_ver (@if not [%config_ver%] GEQ [%min_config_ver%] set error_config=1)
 @if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit
@@ -74,16 +74,6 @@
 @if not defined local_temp_log echo ERROR: LOCAL_TEMP_LOG not defined! & set error_config=1
 @if defined local_temp_log (if not exist %local_temp_log% @echo ERROR: LOCAL_TEMP_LOG path is missing! & set error_config=1)
 @if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
-@set jboss_bin_dir=%jboss_root%\bin
-@set jboss_deploy_dir=%jboss_root%\standalone\deployments
-@set fpx_admin_dir=%fpx_root%\fpx-admin
-@set fpx_ejb_dir=%fpx_root%\fpx-admin-ejb
-@set fpx_ejb_client_dir=%fpx_admin_dir%\libs\legacy_ejb
-@set fpx_ejb_jar_dir=%fpx_ejb_dir%\distributions\AdminEjbClient
-@set fpx_war_dir=%fpx_admin_dir%\distributions
-@set fpx_ear_dir=%fpx_ejb_dir%\distributions\EjbServer
-@set fpx_resource_dir=%fpx_admin_dir%\fpx-admin-webview\src\main\resources
-@set fpx_thymeleaf_dir=%fpx_resource_dir%\templates
 :: -----------------------
 ::   5. JBOSS SETTINGS
 @echo ##Validating JBOSS settings...
@@ -99,8 +89,8 @@
 ::   6. GRADLE SETTINGS
 @echo ##Validating Gradle settings...
 @if not defined Penv echo ERROR: PENV not defined! & set error_config=1
-@if defined Penv (if not exist "%fpx_admin_dir%\config_%Penv%.groovy" @echo ERROR: config_%Penv%.groovy file is missing in fpx-admin folder! & set error_config=1)
-@if defined Penv (if not exist "%fpx_ejb_dir%\config_%Penv%.groovy" @echo ERROR: config_%Penv%.groovy file is missing in fpx-admin-ejb folder! & set error_config=1)
+@if defined Penv (if not exist "%fpx_admin_dir%\config_%Penv%.groovy" (if not exist "%fpx_admin_dir%\gradle_%Penv%.properties" @echo ERROR: config_%Penv% file is missing in fpx-admin folder! & set error_config=1))
+@if defined Penv (if not exist "%fpx_ejb_dir%\config_%Penv%.groovy" (if not exist "%fpx_admin_dir%\gradle_%Penv%.properties" @echo ERROR: config_%Penv% file is missing in fpx-admin-ejb folder! & set error_config=1))
 @if not defined gradle_cmd_cleanbuild echo ERROR: CMD_CLEANBUILD not defined! & set error_config=1
 @if defined gradle_cmd_cleanbuild (if "%gradle_cmd_cleanbuild%"=="" @echo ERROR: CMD_CLEANBUILD is blank! & set error_config=1)
 @if not defined gradle_cmd_buildrelease echo ERROR: CMD_BUILDRELEASE not defined! & set error_config=1
@@ -140,10 +130,10 @@
 ::Detect git branch
 @for /f %%i in ('git rev-parse --abbrev-ref HEAD') do @set dev_branch=%%i
 ::Set JBOSS ENV base on git branch
-@call .userConfig.bat --detect-jboss-env
+@call %userConfig_file% --detect-jboss-env
 @if "%branch_categ%"=="" set "branch_categ=???"
 ::Set Penv base on git branch
-@call .userConfig.bat --penv-default
+@call %userConfig_file% --penv-default
 @echo ##Starting program...
 ::@color 0A
 @title %toolname% (%project_title%) [%dev_branch%]

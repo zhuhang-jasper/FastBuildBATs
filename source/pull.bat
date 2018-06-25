@@ -8,7 +8,7 @@
 @cd %fpx_root%
 @set branch_to_pull=
 ::Get Default branch settings
-@call .userConfig.bat --git-default "branch_to_pull"
+@call %userConfig_file% --git-default "branch_to_pull"
 @if "%branch_to_pull%"=="" (goto NO_INPUT)
 @echo [33mGIT Default pulling from %branch_to_pull%... [0m
 @echo [33mGIT ^>[0m %cmd_pull% %branch_to_pull%
