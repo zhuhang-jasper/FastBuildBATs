@@ -59,7 +59,6 @@
 :: Prefixes are used to search for project folders
 :: ## webview_prefix  : webview project name prefix eg: fpx-admin-webview...
 :: ## ejb_prefix      : EJB project name prefix eg: fpx-admin-ejb...
-:: ## war_ear_common_prefix  : common webview & ejb prefix
 :: =====================================================
 @set project_title=FPX-Admin Webview
 @set "fpx_root=D:\some_local_path_to\paynet-fpx"
@@ -67,7 +66,6 @@
 @set "local_temp_log=C:\temp"
 @set "webview_prefix=fpx-admin-"
 @set "ejb_prefix=fpx-admin-"
-@set "war_ear_common_prefix=fpx"
 
 :: Project sub-directories
 @set fpx_webview_dir=%fpx_root%\fpx-admin
@@ -96,7 +94,7 @@
 @set jboss_start_minimized=0
 @set jboss_start_autoswitch=1
 @set jboss_rerun_autoswitch=1
-@set jboss_uat_batname=standalone-start-uat.bat
+@set jboss_uat_batname=standalone-start-fpxuat.bat
 @set jboss_fpxnew_batname=standalone-start-fpxnew.bat
 :: @set jboss_uat_batname=standalone-start-full.bat
 :: @set jboss_fpxnew_batname=standalone-start-full.bat

@@ -79,7 +79,6 @@
 :: prefix
 @if not defined webview_prefix set webview_prefix=
 @if not defined ejb_prefix set ejb_prefix=
-@if not defined war_ear_common_prefix set war_ear_common_prefix=
 
 @echo ##Validating Project sub-directory paths...
 :: webview subpaths

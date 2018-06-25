@@ -11,7 +11,18 @@
 
 @echo [33mAutobuild new .dodeploy marker files...[0m
 @pushd %deploy_dir%
-@for /D %%f in (*.ear) do @copy NUL %%f.dodeploy >NUL
-@for /D %%f in (*.war) do @copy NUL %%f.dodeploy >NUL
+
+:: Create skipdeploy for all deployables
+@for /D %%f in (*.ear) do @copy NUL %%f.skipdeploy >NUL
+@for /D %%f in (*.war) do @copy NUL %%f.skipdeploy >NUL
+
+:: Remove unwanted skipdeploy
+@del /Q "%deploy_dir%\%ejb_prefix%ejb-ear*.ear.skipdeploy" >NUL 2>&1
+@del /Q "%deploy_dir%\%webview_prefix%webview*.war.skipdeploy" >NUL 2>&1
+
+:: Add correct dodeploy
+@for /D %%f in (%webview_prefix%webview*) do @copy NUL %%f.dodeploy >NUL
+@for /D %%f in (%ejb_prefix%ejb-ear*) do @copy NUL %%f.dodeploy >NUL
+
 @endlocal
 @popd
