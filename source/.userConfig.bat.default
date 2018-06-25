@@ -18,7 +18,8 @@
 :: ## username        : Text at command shell
 :: ## fancy_dashboard : Fancy dashboard using ASCII art
 ::                    : If off, splash will show on exit
-:: ## fancy_theme     : Theme for fancy dashboard/splash (Green/Holland)
+:: ## fancy_theme     : (Applicable only when 'fancy_dashboard=1')
+::                    : Theme for dashboard/splash (See .splash.bat)
 :: ## cls_keep_dashboard : Dashboard remains after Clear screen 'CLS'
 :: ## exit_splash_off : Force hide splash on exit
 :: =====================================================
@@ -55,11 +56,12 @@
 :: ## fpx_root        : Project source code root path
 :: ## jboss_root      : JBOSS root path
 :: ## local_temp_log  : JBOSS log path (refer groovy config)
-:: ## webview_prefix  : webview project name prefix
-:: ## ejb_prefix      : EJB project name prefix
-:: ## war_ear_common_prefix  : WAR/EAR deployable prefix
+:: Prefixes are used to search for project folders
+:: ## webview_prefix  : webview project name prefix eg: fpx-admin-webview...
+:: ## ejb_prefix      : EJB project name prefix eg: fpx-admin-ejb...
+:: ## war_ear_common_prefix  : common webview & ejb prefix
 :: =====================================================
-@set project_title=FPX - MyClear
+@set project_title=FPX-Admin Webview
 @set "fpx_root=D:\some_local_path_to\paynet-fpx"
 @set "jboss_root=D:\some_local_path_to\jboss-eap-6.4"
 @set "local_temp_log=C:\temp"
@@ -68,16 +70,16 @@
 @set "war_ear_common_prefix=fpx"
 
 :: Project sub-directories
-@set jboss_bin_dir=%jboss_root%\bin
-@set jboss_deploy_dir=%jboss_root%\standalone\deployments
 @set fpx_webview_dir=%fpx_root%\fpx-admin
-@set fpx_ejb_dir=%fpx_root%\%ejb_prefix%ejb
-@set fpx_ejb_client_dir=%fpx_webview_dir%\libs\legacy_ejb
-@set fpx_ejb_jar_dir=%fpx_ejb_dir%\distributions\AdminEjbClient
 @set fpx_war_dir=%fpx_webview_dir%\distributions
-@set fpx_ear_dir=%fpx_ejb_dir%\distributions\EjbServer
+@set fpx_ejb_client_dir=%fpx_webview_dir%\libs\legacy_ejb
 @set fpx_resource_dir=%fpx_webview_dir%\%webview_prefix%webview\src\main\resources
 @set fpx_thymeleaf_dir=%fpx_resource_dir%\templates
+@set fpx_ejb_dir=%fpx_root%\%ejb_prefix%ejb
+@set fpx_ejb_jar_dir=%fpx_ejb_dir%\distributions\AdminEjbClient
+@set fpx_ear_dir=%fpx_ejb_dir%\distributions\EjbServer
+@set jboss_bin_dir=%jboss_root%\bin
+@set jboss_deploy_dir=%jboss_root%\standalone\deployments
 
 :: =====================================================
 ::   5. JBOSS SETTINGS

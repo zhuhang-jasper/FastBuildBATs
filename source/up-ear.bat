@@ -10,6 +10,8 @@
 
 @pushd "%deploy_dir%"
 @for /D %%f in (%ejb_prefix%ejb-ear*) do @echo [33mDeleting old EAR from JBOSS dpl ^>^> %%f [0m & @rmdir %%f /S /Q
+
+@if not exist %fpx_ear_dir% echo [31mNo EAR found! Please perform gradle build.[0m & goto END
 @cd "%fpx_ear_dir%"
 
 @if not "%~1"=="" (goto NOTRACE)
@@ -23,3 +25,4 @@
 :END
 @popd
 @endlocal
+@goto :EOF

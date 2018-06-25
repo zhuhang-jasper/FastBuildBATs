@@ -4,8 +4,11 @@
 @set deploy_dir=%jboss_deploy_dir%
 @if not "%~1"=="" (set deploy_dir=%deploy_dir%^\%~1)
 @if not exist "%deploy_dir%" (mkdir "%deploy_dir%")
+
 @pushd "%deploy_dir%"
 @for /D %%f in (%webview_prefix%webview*) do @echo [33mDeleting old WAR from JBOSS dpl ^>^> %%f [0m & @rmdir %%f /S /Q
+
+@if not exist %fpx_war_dir% echo [31mWARNING: No WAR found! Please perform gradle build.[0m & goto END
 @cd "%fpx_war_dir%"
 
 @if not "%~1"=="" (goto NOTRACE)
@@ -19,3 +22,4 @@
 :END
 @popd
 @endlocal
+@goto :EOF
