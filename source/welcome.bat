@@ -3,6 +3,7 @@
 setlocal
 if not "%mode%"=="dev" cls
 call :GETBOOL %gradle_enable_debug%
+call :GETJBOSSENV %branch_categ%
 if "%fancy_dashboard%"=="1" (goto FANCY) else (goto NORMAL)
 
 :FANCY
@@ -22,12 +23,12 @@ goto REST
 echo.
 set newline=^& echo.
 set "dashboard="
-set "dashboard=%dashboard%   Project: [97m%project_title%[0m"
-set "dashboard=%dashboard% ^| Branch: [31m%dev_branch%[0m"
+set "dashboard=%dashboard%   [7;37mProject: %project_title%[0m%newline%"
+set "dashboard=%dashboard%    Branch: [31m%dev_branch%[0m"
+set "dashboard=%dashboard%  ^|  JBOSS DB: [31m%branch_categ_txt%[0m"
 set "dashboard=%dashboard%%newline%"
-set "dashboard=%dashboard%   JBOSS: [31m%branch_categ%[0m"
-set "dashboard=%dashboard% ^| Gradle Penv: [31m%Penv%[0m"
-set "dashboard=%dashboard% ^| Gradle DEBUG: [31m%gradle_enable_debug_bool%[0m"
+set "dashboard=%dashboard%    Gradle Penv: [31m%Penv%[0m"
+set "dashboard=%dashboard%  ^|  Gradle DEBUG mode: [31m%gradle_enable_debug_bool%[0m"
 echo %dashboard%
 ::echo     Git branch in use                ^=  [31m%dev_branch%[0m
 ::echo     JBOSS Environment                ^=  [31m%branch_categ%[0m
@@ -46,4 +47,10 @@ endlocal
 :GETBOOL
 @if "%~1"=="1" (set gradle_enable_debug_bool=true)
 @if "%~1"=="0" (set gradle_enable_debug_bool=false)
+@goto :EOF
+
+::@CALLED
+:GETJBOSSENV
+@if "%~1%"=="reporting" (set branch_categ_txt=FPXNEW)
+@if "%~1%"=="refinement" (set branch_categ_txt=FPX_UAT)
 @goto :EOF

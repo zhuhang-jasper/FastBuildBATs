@@ -8,7 +8,7 @@
 :: ##BOOTUP SCRIPT
 
 :BOOTUP
-@set version=1.7.8
+@set version=1.7.9
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
 @set mode=user
@@ -31,7 +31,7 @@
 @set path=%path_default%;%root%;C:\windows\explorer.exe
 :: -----------------------
 @echo ##Checking config file version...
-@set min_config_ver=1.78
+@set min_config_ver=1.79
 @if not defined config_ver set error_config=1
 @if defined config_ver (@if not [%config_ver%] GEQ [%min_config_ver%] set error_config=1)
 @if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit
@@ -73,6 +73,9 @@
 @if defined jboss_root (if not exist %jboss_root% @echo ERROR: JBOSS_ROOT path is missing! & set error_config=1)
 @if not defined local_temp_log echo ERROR: LOCAL_TEMP_LOG not defined! & set error_config=1
 @if defined local_temp_log (if not exist %local_temp_log% @echo ERROR: LOCAL_TEMP_LOG path is missing! & set error_config=1)
+@if not defined webview_prefix set webview_prefix=
+@if not defined ejb_prefix set ejb_prefix=
+@if not defined war_ear_common_prefix set war_ear_common_prefix=
 @if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 :: -----------------------
 ::   5. JBOSS SETTINGS
@@ -89,8 +92,8 @@
 ::   6. GRADLE SETTINGS
 @echo ##Validating Gradle settings...
 @if not defined Penv echo ERROR: PENV not defined! & set error_config=1
-@if defined Penv (if not exist "%fpx_admin_dir%\config_%Penv%.groovy" (if not exist "%fpx_admin_dir%\gradle_%Penv%.properties" @echo ERROR: config_%Penv% file is missing in fpx-admin folder! & set error_config=1))
-@if defined Penv (if not exist "%fpx_ejb_dir%\config_%Penv%.groovy" (if not exist "%fpx_admin_dir%\gradle_%Penv%.properties" @echo ERROR: config_%Penv% file is missing in fpx-admin-ejb folder! & set error_config=1))
+@if defined Penv (if not exist "%fpx_webview_dir%\config_%Penv%.groovy" (if not exist "%fpx_webview_dir%\gradle_%Penv%.properties" @echo ERROR: config_%Penv% file is missing in webview project folder! & set error_config=1))
+@if defined Penv (if not exist "%fpx_ejb_dir%\config_%Penv%.groovy" (if not exist "%fpx_ejb_dir%\gradle_%Penv%.properties" @echo ERROR: config_%Penv% file is missing in EJB project folder! & set error_config=1))
 @if not defined gradle_cmd_cleanbuild echo ERROR: CMD_CLEANBUILD not defined! & set error_config=1
 @if defined gradle_cmd_cleanbuild (if "%gradle_cmd_cleanbuild%"=="" @echo ERROR: CMD_CLEANBUILD is blank! & set error_config=1)
 @if not defined gradle_cmd_buildrelease echo ERROR: CMD_BUILDRELEASE not defined! & set error_config=1

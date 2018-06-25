@@ -1,6 +1,6 @@
 @call .preLoad.bat
-@pushd "%fpx_admin_dir%"
-@echo [33mGRADLE ^> %fpx_admin_dir%\%gradle_cmd_cleanbuild%%Penv% [0m
+@pushd "%fpx_webview_dir%"
+@echo [33mGRADLE ^> %fpx_webview_dir%\%gradle_cmd_cleanbuild%%Penv% [0m
 
 @setlocal
 @set command=%gradle_cmd_cleanbuild%%Penv%

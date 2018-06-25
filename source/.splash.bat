@@ -3,13 +3,14 @@
 
 :THEMING
 set "col1=" & set "col2=" & set "col3=" & set "mark=" & set "col4=" & set "thgap="
-set "red=[31m" & set "green=[32m" & set "yellow=[33m" & set "blue=[34m"
-set "magenta=[35m" & set "cyan=[36m" & set "white=[37m" & set "off=[0m"
+set "red=[31m" & set "green=[92m" & set "yellow=[33m" & set "blue=[34m"
+set "magenta=[35m" & set "cyan=[36m" & set "white=[37m" & set "off=[0m" & set "inv=[7m"
 set theme=%fancy_theme%
 if "%theme%"=="" set "theme=Green"
-:: Apply Theme. options: Green, Holland
+:: Apply Theme. options: Green, Holland, Italy
 if "%theme%"=="Green" (set "col1=%green%" & set "col2=%green%" & set "col3=%green%" & set "col4=%yellow%" & set "thgap=  ")
 if "%theme%"=="Holland" (set "col1=%red%" & set "col2=%white%" & set "col3=%cyan%" & set "col4=%white%" & set "mark=FIFA")
+if "%theme%"=="Italy" (set "col1=%green%" & set "col2=%white%" & set "col3=%red%" & set "col4=%white%" & set "mark=FIFA")
 call :VERTITLE
 if "%~1"=="/dashboard" (goto DASHBOARD) else (goto SPLASH)
 
@@ -17,9 +18,9 @@ if "%~1"=="/dashboard" (goto DASHBOARD) else (goto SPLASH)
 echo  %col2%--------------------------------------------------------------------%off%
 call :BIGTITLE
 echo                                           %col4%%vArt1%
-echo              Fast Build + Deploy Commands %vArt2%
-echo                Gradle, JBOSS, GIT, 7zip   %vArt3%
-echo                   by: zhuhang.jasper      %vArt4%%off%
+echo              Fast Build + Deploy Commands %vArt2% 
+echo                Gradle, JBOSS, GIT, 7zip   %vArt3% 
+echo                   by: zhuhang.jasper      %vArt4% %off%
 goto END
 
 :SPLASH
@@ -39,10 +40,10 @@ goto END
 
 ::@called
 :BIGTITLE
-echo %thgap%         %col1% ___        _   %col2%___      _ _    _ %col3%___   _ _____   %off%
-echo %thgap%         %col1%^| __^|_ _ __^| ^|_%col2%^| _ )_  _(_) ^|__^| %col3%^| _ ) /_\_   _^|__ %off%
-echo %thgap%         %col1%^| _/ _` (_-^<  _%col2%^| _ \ ^|^| ^| ^| / _` %col3%^| _ \/ _ \^| ^|(_-^< %off%
-echo %thgap%         %col1%^|_^|\__,_/__/\__%col2%^|___/\_,_^|_^|_\__,_%col3%^|___/_/ \_\_^|/__/ %white%%mark%%off%
+echo %thgap%        %col1% ___        _   %col2%___      _ _    _ %col3%___   _ _____   %off%
+echo %thgap%        %col1%^| __^|_ _ __^| ^|_%col2%^| _ )_  _(_) ^|__^| %col3%^| _ ) /_\_   _^|__ %inv%%col1%__%off%
+echo %thgap%        %col1%^| _/ _` (_-^<  _%col2%^| _ \ ^|^| ^| ^| / _` %col3%^| _ \/ _ \^| ^|(_-^< %inv%%col2%__%off%
+echo %thgap%        %col1%^|_^|\__,_/__/\__%col2%^|___/\_,_^|_^|_\__,_%col3%^|___/_/ \_\_^|/__/ %inv%%col3%__%off% %white%%mark%%off%
 goto :EOF
 
 ::@called

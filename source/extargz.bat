@@ -30,8 +30,8 @@
 
 :: Validating specified Penv
 @set error_config=0
-@if not exist "%fpx_admin_dir%\config_%Penv%.groovy" (@echo [31mERROR: config_%Penv%.groovy file is missing in fpx-admin folder! [0m & set error_config=1)
-@if not exist "%fpx_ejb_dir%\config_%Penv%.groovy" (@echo [31mERROR: config_%Penv%.groovy file is missing in fpx-admin-ejb folder! [0m & set error_config=1)
+@if not exist "%fpx_webview_dir%\config_%Penv%.groovy" (@echo [31mERROR: config_%Penv%.groovy file is missing in webview project folder! [0m & set error_config=1)
+@if not exist "%fpx_ejb_dir%\config_%Penv%.groovy" (@echo [31mERROR: config_%Penv%.groovy file is missing in EJB project folder! [0m & set error_config=1)
 @if [%error_config%]==[1] goto PENVERROR
 
 :: Skip gradle build if soft flag specified
