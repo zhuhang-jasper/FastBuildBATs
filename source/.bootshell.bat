@@ -12,6 +12,7 @@
 @cd /d %root%
 :: Bootup with parameter=workspace path
 @call .bootup.bat "%~1"
+@if "%startup_success%"=="0" (echo FATAL: Bootup FAILED. & pause & exit)
 ::@start /b /wait .bootup.bat & rem //low RAM
 ::@cmd /k ".bootup.bat" & rem //old method
 
@@ -90,10 +91,12 @@
 :: handle '--help--' arguments
 @set "ucmd=%ucmd:#s#=%"
 @set "ucmd=%ucmd:--help--="/?"%"
+@if "%input_cmd%"=="echo" (goto SKIPIFECHO)
 @call .isHelp.bat %ucmd%
 @if "%isHelp%"=="true" (goto HELPCMD)
 @if "%input_cmd%"=="run" (call :RUNSWITCH %input_cmd%)
 @if "%input_cmd%"=="run2" (call :RUNSWITCH %input_cmd%)
+:SKIPIFECHO
 @call :EXECUTE %ucmd%
 ::AutoReboot after UserConfig
 @if "%input_cmd%"=="config" (goto ENDSHELL)
