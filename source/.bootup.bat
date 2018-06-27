@@ -17,7 +17,8 @@
 :: ##User Configuration
 :: -----------------------
 @set root=%~dp0.
-@set userConfig_file=%~1
+@set user_workspace=%~1
+@set userConfig_file=%user_workspace%\.userConfig.bat
 @set userConfig_default=%root%\.userConfig.bat.default
 @if not exist %userConfig_default% @echo FATAL: PROGRAM STARTED IN AN UNUSUAL WAY. PLEASE USE '.ALWAYSSTARTME.BAT' & goto :EOF
 @echo ##Create new config file if necessary...
@@ -99,7 +100,7 @@
 @if not defined fpx_ejb_dir echo ERROR: FPX_EJB_DIR not defined! & set error_config=1
 @if defined fpx_ejb_dir (if not exist %fpx_ejb_dir% @echo ERROR: FPX_EJB_DIR path is missing! & set error_config=1)
 :: first time skip distribution folders
-@if not exist %fpx_ejb_dir%\distributions (goto SKIPWEBVIEWDSTR)
+@if not exist %fpx_ejb_dir%\distributions (goto SKIPEJBDSTR)
 @if not defined fpx_ejb_jar_dir echo ERROR: FPX_EJB_JAR_DIR not defined! & set error_config=1
 @if defined fpx_ejb_jar_dir (if not exist %fpx_ejb_jar_dir% @echo ERROR: FPX_EJB_JAR_DIR path is missing! & set error_config=1)
 @if not defined fpx_ear_dir echo ERROR: FPX_EAR_DIR not defined! & set error_config=1

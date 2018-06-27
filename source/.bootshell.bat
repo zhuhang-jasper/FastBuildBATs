@@ -6,12 +6,12 @@
 ::                                                   
 :: =====================================================
 :: ##SHELL SCRIPT
-@set "core_config_file=%~1"
 
 :SHELL
 @set root=%~dp0.
 @cd /d %root%
-@call .bootup.bat "%core_config_file%"
+:: Bootup with parameter=workspace path
+@call .bootup.bat "%~1"
 ::@start /b /wait .bootup.bat & rem //low RAM
 ::@cmd /k ".bootup.bat" & rem //old method
 
