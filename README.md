@@ -22,11 +22,4 @@ It is a set of BATCH scripts to help you build and deploy project source code ea
 Windows 10 or above. To support colorful STDOUT.
 
 ### Instructions
-(Optional) Setup gradle,git,7zip in environment variables, or do in step 4.
-1. Copy prepared shortcut to desktop.
-2. Update shortcut to point to "source/.alwaysStartMe.bat".
-3. Run from shortcut.
-4. Enter "CONFIG" command to do user configurations.
-5. Done.
-
-You can edit any command by typing "EDIT xxx" where xxx is the command name.
+Refer `<private_project>/tool/FastBuildBATs/README.txt`

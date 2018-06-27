@@ -1,4 +1,6 @@
-::ALWAYS RUN THIS BATCH FILE TO START TOOL
+::ALWAYS RUN THIS BATCH FILE WITH PARAMETER = WORKSPACE FULL PATH
+:: Example usage: .alwaysStartMe.bat "D:\project-name\."
+
 @set source_code_root=%~dp0.
 @cd /d %source_code_root%
 @set "sys_workspace=%~1"
