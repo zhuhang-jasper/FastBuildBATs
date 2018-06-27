@@ -152,6 +152,7 @@
 :EXIT
 @if not "%fancy_dashboard%"=="1" (if not "%exit_splash_off%"=="1" (@call ".splash.bat" "/exit"))
 @call "kill.bat"
+@if "%runningJboss%%runningJbossSel%"=="00" exit
 @echo Press any key to exit. . . 
 @pause 1>NUL
 @exit
