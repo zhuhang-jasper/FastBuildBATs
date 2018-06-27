@@ -17,10 +17,10 @@ if "%~1"=="/dashboard" (goto DASHBOARD) else (goto SPLASH)
 :DASHBOARD
 echo  %col2%--------------------------------------------------------------------%off%
 call :BIGTITLE
-echo                                           %col4%%vArt1%
-echo              Fast Build + Deploy Commands %vArt2% 
-echo                Gradle, JBOSS, GIT, 7zip   %vArt3% 
-echo                   by: zhuhang.jasper      %vArt4% %off%
+echo                                          %col4%%vArt1%
+echo             Fast Build + Deploy Commands %vArt2% 
+echo               Gradle, JBOSS, GIT, 7zip   %vArt3% 
+echo                  by: zhuhang.jasper      %vArt4% %off%
 goto END
 
 :SPLASH
@@ -49,10 +49,10 @@ goto :EOF
 ::@called
 :VERTITLE
 set "vArt1=" & set "vArt2=" & set "vArt3=" & set "vArt4="
-set "vArt1=%vArt1%      _  ____ ___ "
-set "vArt2=%vArt2% __ _/ ^|^|__  ( _ )"
-set "vArt3=%vArt3% \ V / ^|_ / // _ \"
-set "vArt4=%vArt4%  \_/^|_(_)_(_)___/"
+set "vArt1=%vArt1%      _   ___   __  "
+set "vArt2=%vArt2% __ _/ ^| ( _ ) /  \ "
+set "vArt3=%vArt3% \ V / ^|_/ _ \^| () ^|"
+set "vArt4=%vArt4%  \_/^|_(_)___(_)__/ "
 goto :EOF
 
 :END
