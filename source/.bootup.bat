@@ -8,31 +8,37 @@
 :: ##BOOTUP SCRIPT
 
 :BOOTUP
-@set version=1.7.9
+@set version=1.8.0
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
 @set mode=user
 @cls
+@set "startup_success=0"
 :: -----------------------
 :: ##User Configuration
 :: -----------------------
 @set root=%~dp0.
 @set user_workspace=%~1
 @set userConfig_file=%user_workspace%\.userConfig.bat
+@set projectConstantParams_file=%user_workspace%\.projectConstantParams.bat
 @set userConfig_default=%root%\.userConfig.bat.default
+@set projectConstantParams_default=%root%\.projectConstantParams.bat.default
 @if not exist %userConfig_default% @echo FATAL: PROGRAM STARTED IN AN UNUSUAL WAY. PLEASE USE '.ALWAYSSTARTME.BAT' & goto :EOF
+@if not exist %projectConstantParams_default% @echo FATAL: PROGRAM STARTED IN AN UNUSUAL WAY. PLEASE USE '.ALWAYSSTARTME.BAT' & goto :EOF
 @echo ##Create new config file if necessary...
+@if not exist %projectConstantParams_file% copy "%projectConstantParams_default%" "%projectConstantParams_file%"
 @if not exist %userConfig_file% copy "%userConfig_default%" "%userConfig_file%"
 :: -----------------------
-@echo ##Loading config file...
+@echo ##Loading user config file...
 @set error_config=0
 @call %userConfig_file%
-@if defined path_default @set path=%path_default%
-@set path_default=%PATH%
-@set path=%path_default%;%root%;C:\windows\explorer.exe
+@echo ##Loading project constant parameters file...
+@call %projectConstantParams_file%
+@if defined path_default (set "path=%path_default%") else (set "path_default=%PATH%")
+@set "path=%path_default%;%root%;C:\windows\explorer.exe"
 :: -----------------------
 @echo ##Checking config file version...
-@set min_config_ver=1.79
+@set min_config_ver=1.8
 @if not defined config_ver set error_config=1
 @if defined config_ver (@if not [%config_ver%] GEQ [%min_config_ver%] set error_config=1)
 @if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit
@@ -185,6 +191,7 @@
 @goto :EOF
 
 :STARTUP
+@set "startup_success=1"
 @if "%enable_eclipse%"=="1" (if "%startup_reload_eclipse%"=="1" (echo. & echo [33mStartup Tasks:[0m))
 @if "%enable_eclipse%"=="1" (if "%startup_reload_eclipse%"=="1" (call :STARTUP_ECLIPSE))
 @goto :EOF
