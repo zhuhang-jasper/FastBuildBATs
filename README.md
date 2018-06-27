@@ -1,6 +1,7 @@
 # FastBuildBATs
 Developer tool for managing, building &amp; deploying Gradle Project (Gradle, JBOSS, Git, 7zip)
 
+## About
 FastBuildBAT is a small program written using MS-DOS commands.
 It is a set of BATCH scripts to help you build and deploy project source code easily. Some features include:
 - GRADLE Build commands (clean build ^& buildRelease)
@@ -15,8 +16,10 @@ It is a set of BATCH scripts to help you build and deploy project source code ea
 - Explorer shortcuts to frequently accessed folders
 - more... (See "FILE_LIST_LOG.txt" or Enter "cmds" command in tool)
 
-Instructions
-(Recommended to use in Windows 10 or above. To support colorful STDOUT.)
+## Minimum Requirement
+Windows 10 or above. To support colorful STDOUT.
+
+## Instructions
 (Optional) Setup gradle,git,7zip in environment variables, or do in step 6.
 1. Copy prepared shortcut to desktop.
 2. Update shortcut to point to "source/.alwaysStartMe.bat".
