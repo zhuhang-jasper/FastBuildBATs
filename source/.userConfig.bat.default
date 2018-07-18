@@ -6,7 +6,7 @@
 ::                                                   
 :: =====================================================
 :: ##USERCONFIG SCRIPT
-@set config_ver=1.8
+@set config_ver=1.81
 @if "%~1"=="--detect-jboss-env" (goto BRANCHENV)
 @if "%~1"=="--git-default" (goto GITDEFAULT)
 @if "%~1"=="--penv-default" (goto PENVDEFAULT)
@@ -42,12 +42,14 @@
 :: =====================================================
 ::   3. PROGRAM DEPENDENCIES PATH SETTINGS (!IMPORTANT)
 :: #  Comment out if already set in environment path.
-:: ## dir_git    : command PULL & branch detection
+:: ## dir_jvm    : JAVA_HOME to use
 :: ## dir_gradle : command CB,BR,CBR
+:: ## dir_git    : command PULL & branch detection
 :: ## dir_7zip   : command TARGZ, EXTARGZ
 :: =====================================================
-@set dir_git=C:\Program Files\Git\cmd
+@set dir_jvm=C:\Program Files\Zulu\zulu7.22.0.3-jdk7.0.171-win_x64
 @set dir_gradle=D:\gradle\gradle-2.3\bin
+@set dir_git=C:\Program Files\Git\cmd
 @set dir_7zip=C:\Program Files\7-Zip
 
 :: =====================================================

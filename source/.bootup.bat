@@ -8,7 +8,7 @@
 :: ##BOOTUP SCRIPT
 
 :BOOTUP
-@set version=1.8.0
+@set version=1.8.1
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
 @set mode=user
@@ -37,11 +37,16 @@
 @if defined path_default (set "path=%path_default%") else (set "path_default=%PATH%")
 @set "path=%path_default%;%root%;C:\windows\explorer.exe"
 :: -----------------------
-@echo ##Checking config file version...
-@set min_config_ver=1.8
+@echo ##Checking user config file version...
+@set min_config_ver=1.81
 @if not defined config_ver set error_config=1
 @if defined config_ver (@if not [%config_ver%] GEQ [%min_config_ver%] set error_config=1)
-@if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit
+@if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %user_workspace% & exit
+@echo ##Checking project config file version...
+@set min_prj_config_ver=1.8
+@if not defined prj_config_ver set error_config=2
+@if defined prj_config_ver (@if not [%prj_config_ver%] GEQ [%min_prj_config_ver%] set error_config=2)
+@if [%error_config%]==[2] @echo ^".projectConstantParams.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %user_workspace% & exit
 :: -----------------------
 ::   1. INTERFACE SETTINGS
 @echo ##Validating Interface settings...
@@ -58,17 +63,20 @@
 @if defined dir_notepad (if not exist "%dir_notepad%" @echo WARNING: DIR_NOTEPAD path is missing! & pause)
 @WHERE %notepad_exec% >nul 2>nul
 @if %ERRORLEVEL% NEQ 0 (@echo ERROR: The selected NOTEPAD is not working! & set error_config=1)
-@if [%error_config%]==[1] @echo Please edit ^".userConfig.bat^" file manually . & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %root% & exit
+@if [%error_config%]==[1] @echo Please edit ^".userConfig.bat^" file manually . & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %user_workspace% & exit
 @set isConfigLoaded=yes
 :: -----------------------
 ::   3. PROGRAM DEPENDENCIES PATH SETTINGS
 @echo ##Validating Program dependencies path settings...
-@if defined dir_git (if not exist "%dir_git%" @echo ERROR: DIR_GIT path is missing! & set error_config=1)
+@if defined dir_jvm (if not exist "%dir_jvm%" @echo ERROR: DIR_JVM path is missing! & set error_config=1)
 @if defined dir_gradle (if not exist "%dir_gradle%" @echo ERROR: DIR_GRADLE path is missing! & set error_config=1)
+@if defined dir_git (if not exist "%dir_git%" @echo ERROR: DIR_GIT path is missing! & set error_config=1)
 @if defined dir_7zip (if not exist "%dir_7zip%" @echo ERROR: DIR_7ZIP path is missing! & set error_config=1)
 @if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
-@if defined dir_git set path=%PATH%;%dir_git%
+@if defined dir_jvm set java_home=%dir_jvm%
+@if defined dir_jvm set path=%PATH%;%java_home%\bin
 @if defined dir_gradle set path=%PATH%;%dir_gradle%
+@if defined dir_git set path=%PATH%;%dir_git%
 @if defined dir_7zip set path=%PATH%;%dir_7zip%
 :: -----------------------
 ::   4. PROJECT SETTINGS

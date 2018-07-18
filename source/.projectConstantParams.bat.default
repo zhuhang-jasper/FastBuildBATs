@@ -6,7 +6,7 @@
 ::                                                   
 :: =====================================================
 :: ##PROJECT CONSTANT SETTINGS OVERWRITE USERCONFIG
-@set config_ver=1.8
+@set prj_config_ver=1.8
 :: =====================================================
 :: ## project_title   : Text at window title & status bar
 :: ## webview_prefix  : webview project name prefix eg: fpx-admin-webview...
