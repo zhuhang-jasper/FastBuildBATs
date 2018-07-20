@@ -6,12 +6,12 @@ Developer tool for managing, building &amp; deploying Gradle Project (Gradle, JB
 ### About
 FastBuildBAT is a small program written using MS-DOS commands.
 It is a set of BATCH scripts to help you build and deploy project source code easily. Some features include:
-- GRADLE Build commands (clean build ^& buildRelease)
+- GRADLE Build commands (clean build & buildRelease)
 - Auto update EJB client JAR file for WAR building
 - Switch gradle environment (Penv) easily
 - Smart commands upon changing branch between reporting/refinement 
 - Sync Thymeleaf HTML changes for instant effect in browser F5
-- Deploy WAR ^& EAR to local JBOSS (Run ^& Kill easily)
+- Deploy WAR & EAR to local JBOSS (Run & Kill easily)
 - Export project as a '.tar.gz' for quick office deployment
 - GIT implementation (branch info, pull)
 - Eclipse implementation (swapping gradle.build for fast dependency refresh)
