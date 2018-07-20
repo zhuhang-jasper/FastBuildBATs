@@ -6,11 +6,12 @@ set "col1=" & set "col2=" & set "col3=" & set "mark=" & set "col4=" & set "thgap
 set "red=[31m" & set "green=[92m" & set "yellow=[33m" & set "blue=[34m"
 set "magenta=[35m" & set "cyan=[36m" & set "white=[37m" & set "off=[0m" & set "inv=[7m"
 set theme=%fancy_theme%
+set theme_type=
 if "%theme%"=="" set "theme=Green"
 :: Apply Theme. options: Green, Holland, Italy
 if "%theme%"=="Green" (set "col1=%green%" & set "col2=%green%" & set "col3=%green%" & set "col4=%yellow%" & set "thgap=  ")
-if "%theme%"=="Holland" (set "col1=%red%" & set "col2=%white%" & set "col3=%cyan%" & set "col4=%white%" & set "mark=FIFA")
-if "%theme%"=="Italy" (set "col1=%green%" & set "col2=%white%" & set "col3=%red%" & set "col4=%white%" & set "mark=FIFA")
+if "%theme%"=="Holland" (set "theme_type=fifa" & set "col1=%red%" & set "col2=%white%" & set "col3=%cyan%" & set "col4=%white%")
+if "%theme%"=="Italy" (set "theme_type=fifa" & set "col1=%green%" & set "col2=%white%" & set "col3=%red%" & set "col4=%white%")
 call :VERTITLE
 if "%~1"=="/dashboard" (goto DASHBOARD) else (goto SPLASH)
 
@@ -40,10 +41,11 @@ goto END
 
 ::@called
 :BIGTITLE
+if "%theme_type%"=="fifa" (set "fifa_flag=__" & set "mark=FIFA") else (set "fifa_flag=")
 echo %thgap%        %col1% ___        _   %col2%___      _ _    _ %col3%___   _ _____   %off%
-echo %thgap%        %col1%^| __^|_ _ __^| ^|_%col2%^| _ )_  _(_) ^|__^| %col3%^| _ ) /_\_   _^|__ %inv%%col1%__%off%
-echo %thgap%        %col1%^| _/ _` (_-^<  _%col2%^| _ \ ^|^| ^| ^| / _` %col3%^| _ \/ _ \^| ^|(_-^< %inv%%col2%__%off%
-echo %thgap%        %col1%^|_^|\__,_/__/\__%col2%^|___/\_,_^|_^|_\__,_%col3%^|___/_/ \_\_^|/__/ %inv%%col3%__%off% %white%%mark%%off%
+echo %thgap%        %col1%^| __^|_ _ __^| ^|_%col2%^| _ )_  _(_) ^|__^| %col3%^| _ ) /_\_   _^|__ %inv%%col1%%fifa_flag%%off%
+echo %thgap%        %col1%^| _/ _` (_-^<  _%col2%^| _ \ ^|^| ^| ^| / _` %col3%^| _ \/ _ \^| ^|(_-^< %inv%%col2%%fifa_flag%%off%
+echo %thgap%        %col1%^|_^|\__,_/__/\__%col2%^|___/\_,_^|_^|_\__,_%col3%^|___/_/ \_\_^|/__/ %inv%%col3%%fifa_flag%%off% %white%%mark%%off%
 goto :EOF
 
 ::@called
