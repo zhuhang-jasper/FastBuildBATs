@@ -94,8 +94,9 @@
 @set Penv=local
 @set gradle_cmd_cleanbuild=gradle clean build -Penv=
 @set gradle_cmd_buildrelease=gradle buildRelease -Penv=
-@set gradle_enable_debug=0
-@set gradle_cmd_debug_flag=--stacktrace -debug
+@set gradle_enable_debug=1
+@set gradle_cmd_debug_flag=--stacktrace
+:: optional --stacktrace -debug
 
 :: =====================================================
 ::   7. EXPORT DEPLOYMENT ZIP SETTINGS
@@ -126,8 +127,8 @@
 :: =====================================================
 @set enable_eclipse=0
 @set startup_reload_eclipse=0
-@set custom_gradle_build_reporting_filename=build.gradle.eclipse.reporting
-@set custom_gradle_build_refinement_filename=build.gradle.eclipse.refinement
+@set custom_gradle_build_reporting_filename=build.gradle.eclipse.customised.reporting
+@set custom_gradle_build_refinement_filename=build.gradle.eclipse.customised.refinement
 
 :: ==================== END PART I =====================
 @goto :EOF
@@ -140,7 +141,7 @@
 ::    reporting/refinement
 :: =====================================================
 :BRANCHENV
-@echo Reading JBOSS SMART ENVIRONMENT CONFIGURATION...
+@echo ##Reading JBOSS SMART ENVIRONMENT CONFIGURATION...
 @call .preLoad.bat
 @set addedObj=
 :: Add your pairing below: [local branch]//[category]
@@ -163,7 +164,7 @@
 ::  # Overwrites Penv' property under 6.GRADLE SETTINGS
 :: =====================================================
 :PENVDEFAULT
-@echo Reading GRADLE SMART PENV CONFIGURATION...
+@echo ##Reading GRADLE SMART PENV CONFIGURATION...
 @call .preLoad.bat
 @set addedObj=
 :: Add your pairing below: [local branch]//[Penv]
@@ -185,7 +186,7 @@
 ::  # For command 'PULL' when no specified branch
 :: =====================================================
 :GITDEFAULT
-@echo Reading GIT DEFAULT PULL BRANCH CONFIGURATION...
+@echo ##Reading GIT DEFAULT PULL BRANCH CONFIGURATION...
 @call .preLoad.bat
 @set addedObj=
 :: Add your pairing below: [local branch]//[remote branch]
