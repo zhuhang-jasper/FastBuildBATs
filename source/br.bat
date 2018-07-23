@@ -2,7 +2,7 @@
 
 @if not exist %fpx_war_dir% (goto BUILD)
 @pushd "%fpx_war_dir%"
-@for /D %%f in (%webview_prefix%webview*) do @echo [33mRemoving old WAR ^>^> %%f [0m & @rmdir %%f /S /Q
+@for /D %%f in (%webview_prefix_name%*) do @echo [33mRemoving old WAR ^>^> %%f [0m & @rmdir %%f /S /Q
 
 :BUILD
 @echo [33mGRADLE ^> %fpx_webview_dir%\%gradle_cmd_buildrelease%%Penv% [0m

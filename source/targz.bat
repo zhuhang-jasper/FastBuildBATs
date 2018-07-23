@@ -9,9 +9,9 @@
 :PREPARE
 :: Setting filename and commands
 @set tarball=%cmd_7z_tarball_prefix%%Penv%.tar
-@set str_dpl=.\%webview_prefix%webview* .\%ejb_prefix%ejb-ear* -x!.\*.war.* -x!.\*.ear.*
+@set str_dpl=.\%webview_prefix_name%* .\%ejb_prefix%ejb-ear* -x!.\*.war.* -x!.\*.ear.*
 @set str_marker=..\*.dodeploy
-@if not "%~1"=="" (set str_dpl=.\%~1\%webview_prefix%webview* .\%~1\%ejb_prefix%ejb-ear* -x^!.\%~1\*.war.* -x^!.\%~1\*.ear.*)
+@if not "%~1"=="" (set str_dpl=.\%~1\%webview_prefix_name%* .\%~1\%ejb_prefix%ejb-ear* -x^!.\%~1\*.war.* -x^!.\%~1\*.ear.*)
 @set cmd_7z_tar=7z a -ttar %tarball% %str_marker% %str_dpl%
 @set cmd_7z_gzip=7z a -tgzip %tarball%.gz %tarball% -sdel
 @echo.
@@ -30,7 +30,7 @@
 @echo [33mAdding .dodeploy marker files to archive...[0m
 @del /Q "%jboss_deploy_dir%\..\*.dodeploy" >NUL 2>&1
 @pushd %deploy_dir%
-@for /D %%f in (%webview_prefix%webview*) do @copy NUL %jboss_deploy_dir%\..\%%f.dodeploy >NUL
+@for /D %%f in (%webview_prefix_name%*) do @copy NUL %jboss_deploy_dir%\..\%%f.dodeploy >NUL
 @for /D %%f in (%ejb_prefix%ejb-ear*) do @copy NUL %jboss_deploy_dir%\..\%%f.dodeploy >NUL
 
 ::Running 7zip

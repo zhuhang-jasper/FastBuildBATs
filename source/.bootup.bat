@@ -43,7 +43,7 @@
 @if defined config_ver (@if not [%config_ver%] GEQ [%min_config_ver%] set error_config=1)
 @if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %user_workspace% & exit
 @echo ##Checking project config file version...
-@set min_prj_config_ver=1.8
+@set min_prj_config_ver=1.81
 @if not defined prj_config_ver set error_config=2
 @if defined prj_config_ver (@if not [%prj_config_ver%] GEQ [%min_prj_config_ver%] set error_config=2)
 @if [%error_config%]==[2] @echo ^".projectConstantParams.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %user_workspace% & exit
@@ -92,7 +92,7 @@
 @if not defined local_temp_log echo ERROR: LOCAL_TEMP_LOG not defined! & set error_config=1
 @if defined local_temp_log (if not exist %local_temp_log% @echo ERROR: LOCAL_TEMP_LOG path is missing! & set error_config=1)
 :: prefix
-@if not defined webview_prefix set webview_prefix=
+@if not defined webview_prefix_name echo ERROR: WEBVIEW_PREFIX_NAME not defined! & set error_config=1
 @if not defined ejb_prefix set ejb_prefix=
 
 @echo ##Validating Project sub-directory paths...

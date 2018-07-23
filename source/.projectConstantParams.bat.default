@@ -6,24 +6,24 @@
 ::                                                   
 :: =====================================================
 :: ##PROJECT CONSTANT SETTINGS OVERWRITE USERCONFIG
-@set prj_config_ver=1.8
+@set prj_config_ver=1.81
 :: =====================================================
-:: ## project_title   : Text at window title & status bar
-:: ## webview_prefix  : webview project name prefix eg: fpx-admin-webview...
-:: ## ejb_prefix      : EJB project name prefix eg: fpx-admin-ejb...
+:: ## project_title        : Text at window title & status bar
+:: ## webview_prefix_name  : webview project name eg: fpx-admin-webview...
+:: ## ejb_prefix           : EJB project name prefix eg: fpx-admin-ejb...
 :: Prefixes are used to search for project folders
 @set "project_title=[unset project_title]"
-@set "webview_prefix=[unset webview_prefix]"
+@set "webview_prefix_name=[unset webview_prefix_name]"
 @set "ejb_prefix=[unset ejb_prefix]"
 
 :: Project sub-directories
 ::@set fpx_webview_dir=%fpx_root%\fpx-admin
 ::@set fpx_war_dir=%fpx_webview_dir%\distributions
 ::@set fpx_ejb_client_dir=%fpx_webview_dir%\libs\legacy_ejb
-::@set fpx_resource_dir=%fpx_webview_dir%\%webview_prefix%webview\src\main\resources
+::@set fpx_resource_dir=%fpx_webview_dir%\%webview_prefix_name%\src\main\resources
 ::@set fpx_thymeleaf_dir=%fpx_resource_dir%\templates
-::@set fpx_ejb_dir=%fpx_root%\%ejb_prefix%ejb
-::@set fpx_ejb_jar_dir=%fpx_ejb_dir%\distributions\AdminEjbClient
+::@set fpx_ejb_dir=%fpx_root%\fpx-admin-ejb
+::@set fpx_ejb_jar_dir=%fpx_ejb_dir%\distributions\EjbClient
 ::@set fpx_ear_dir=%fpx_ejb_dir%\distributions\EjbServer
 ::@set jboss_bin_dir=%jboss_root%\bin
 ::@set jboss_deploy_dir=%jboss_root%\standalone\deployments

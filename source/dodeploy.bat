@@ -18,10 +18,10 @@
 
 :: Remove unwanted skipdeploy
 @del /Q "%deploy_dir%\%ejb_prefix%ejb-ear*.ear.skipdeploy" >NUL 2>&1
-@del /Q "%deploy_dir%\%webview_prefix%webview*.war.skipdeploy" >NUL 2>&1
+@del /Q "%deploy_dir%\%webview_prefix_name%*.war.skipdeploy" >NUL 2>&1
 
 :: Add correct dodeploy
-@for /D %%f in (%webview_prefix%webview*) do @copy NUL %%f.dodeploy >NUL
+@for /D %%f in (%webview_prefix_name%*) do @copy NUL %%f.dodeploy >NUL
 @for /D %%f in (%ejb_prefix%ejb-ear*) do @copy NUL %%f.dodeploy >NUL
 
 @endlocal
