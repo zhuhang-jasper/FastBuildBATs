@@ -51,10 +51,10 @@ goto :EOF
 ::@called
 :VERTITLE
 set "vArt1=" & set "vArt2=" & set "vArt3=" & set "vArt4="
-set "vArt1=%vArt1%      _   ___   _ "
-set "vArt2=%vArt2% __ _/ ^| ( _ ) / ^|"
-set "vArt3=%vArt3% \ V / ^|_/ _ \_^| ^|"
-set "vArt4=%vArt4%  \_/^|_(_)___(_)_^|"
+set "vArt1=%vArt1%      _   ___   ___ "
+set "vArt2=%vArt2% __ _/ ^| ( _ ) ^|_  )"
+set "vArt3=%vArt3% \ V / ^|_/ _ \_ / / "
+set "vArt4=%vArt4%  \_/^|_(_)___(_)___^|"
 goto :EOF
 
 :END

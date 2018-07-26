@@ -317,7 +317,7 @@
 @echo Any front-end changes will take effect immediately upon refresh in browser.
 @echo.
 @echo Content included:  
-@echo "%fpx_thymeleaf_dir%"
+@echo "%fpx_res_thymeleaf_dir%"
 @echo "%fpx_resource_dir%\locale"
 @echo.
 @echo   ^<JBOSS_DEPLOYMENTS^>  =  "%jboss_deploy_dir%"
@@ -332,7 +332,7 @@
 @echo Any front-end changes will take effect immediately upon refresh in browser.
 @echo.
 @echo Content included:  
-@echo "%fpx_thymeleaf_dir%"
+@echo "%fpx_res_thymeleaf_dir%"
 @echo "%fpx_resource_dir%\locale"
 @echo "%fpx_resource_dir%\static"
 @echo.

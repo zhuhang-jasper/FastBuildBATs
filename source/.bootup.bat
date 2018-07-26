@@ -8,7 +8,7 @@
 :: ##BOOTUP SCRIPT
 
 :BOOTUP
-@set version=1.8.1
+@set version=1.8.2
 @set tooltitle=FastBuildBATs
 @title %tooltitle% Boot Up...
 @set mode=user
@@ -43,7 +43,7 @@
 @if defined config_ver (@if not [%config_ver%] GEQ [%min_config_ver%] set error_config=1)
 @if [%error_config%]==[1] @echo ^".userConfig.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %user_workspace% & exit
 @echo ##Checking project config file version...
-@set min_prj_config_ver=1.81
+@set min_prj_config_ver=1.82
 @if not defined prj_config_ver set error_config=2
 @if defined prj_config_ver (@if not [%prj_config_ver%] GEQ [%min_prj_config_ver%] set error_config=2)
 @if [%error_config%]==[2] @echo ^".projectConstantParams.bat^" file outdated. Please delete it and restart the tool. & @echo Press any key to navigate to file in explorer... & pause 1>NUL & @explorer %user_workspace% & exit
@@ -94,39 +94,48 @@
 :: prefix
 @if not defined webview_prefix_name echo ERROR: WEBVIEW_PREFIX_NAME not defined! & set error_config=1
 @if not defined ejb_prefix set ejb_prefix=
+@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
 
 @echo ##Validating Project sub-directory paths...
 :: webview subpaths
-@if not defined fpx_webview_dir echo ERROR: FPX_WEBVIEW_DIR not defined! & set error_config=1
-@if defined fpx_webview_dir (if not exist %fpx_webview_dir% @echo ERROR: FPX_WEBVIEW_DIR path is missing! & set error_config=1)
+@if not defined fpx_webview_dir echo ERROR: FPX_WEBVIEW_DIR not defined! & set error_config=2
+@if defined fpx_webview_dir (if not exist %fpx_webview_dir% @echo ERROR: FPX_WEBVIEW_DIR path is missing! & set error_config=2)
 :: first time skip distribution folders
 @if not exist %fpx_webview_dir%\distributions (goto SKIPWEBVIEWDSTR)
-@if not defined fpx_war_dir echo ERROR: FPX_WAR_DIR not defined! & set error_config=1
-@if defined fpx_war_dir (if not exist %fpx_war_dir% @echo ERROR: FPX_WAR_DIR path is missing! & set error_config=1)
+@if not defined fpx_war_dir echo ERROR: FPX_WAR_DIR not defined! & set error_config=2
+@if defined fpx_war_dir (if not exist %fpx_war_dir% @echo ERROR: FPX_WAR_DIR path is missing! & set error_config=2)
 :SKIPWEBVIEWDSTR
-::@if not defined fpx_ejb_client_dir echo ERROR: FPX_EJB_CLIENT_DIR not defined! & set error_config=1
-@if defined fpx_ejb_client_dir (if not exist %fpx_ejb_client_dir% @echo ERROR: FPX_EJB_CLIENT_DIR path is missing! & set error_config=1)
-::@if not defined fpx_resource_dir echo ERROR: FPX_RESOURCE_DIR not defined! & set error_config=1
-@if defined fpx_resource_dir (if not exist %fpx_resource_dir% @echo ERROR: FPX_RESOURCE_DIR path is missing! & set error_config=1)
-::@if not defined fpx_thymeleaf_dir echo ERROR: FPX_THYMELEAF_DIR not defined! & set error_config=1
-@if defined fpx_thymeleaf_dir (if not exist %fpx_thymeleaf_dir% @echo ERROR: FPX_THYMELEAF_DIR path is missing! & set error_config=1)
+@if not defined fpx_ejb_client_dir echo ERROR: FPX_EJB_CLIENT_DIR not defined! & set error_config=2
+::@if defined fpx_ejb_client_dir (if not exist %fpx_ejb_client_dir% @echo ERROR: FPX_EJB_CLIENT_DIR path is missing! & set error_config=2)
+:: WEBVIEW RESOURCES
+@if not defined fpx_resource_dir echo ERROR: FPX_RESOURCE_DIR not defined! & set error_config=2
+@if defined fpx_resource_dir (if not exist %fpx_resource_dir% @echo ERROR: FPX_RESOURCE_DIR path is missing! & set error_config=2)
+@if not defined fpx_res_thymeleaf_dir echo ERROR: FPX_RES_THYMELEAF_DIR not defined! & set error_config=2
+@if defined fpx_res_thymeleaf_dir (if not exist %fpx_res_thymeleaf_dir% @echo ERROR: FPX_RES_THYMELEAF_DIR path is missing! & set error_config=2)
+@if not defined fpx_res_locale_dir echo ERROR: FPX_RES_LOCALE_DIR not defined! & set error_config=2
+@if defined fpx_res_locale_dir (if not exist %fpx_res_locale_dir% @echo ERROR: FPX_RES_LOCALE_DIR path is missing! & set error_config=2)
+@if not defined fpx_res_static_dir echo ERROR: FPX_RES_STATIC_DIR not defined! & set error_config=2
+@if defined fpx_res_static_dir (if not exist %fpx_res_static_dir% @echo ERROR: FPX_RES_STATIC_DIR path is missing! & set error_config=2)
+:: WAR resource paths
+@if not defined war_res_thymeleaf_dir echo ERROR: WAR_RES_THYMELEAF_DIR not defined! & set error_config=2
+@if not defined war_res_locale_dir echo ERROR: WAR_RES_LOCALE_DIR not defined! & set error_config=2
+@if not defined war_res_static_dir echo ERROR: WAR_RES_STATIC_DIR not defined! & set error_config=2
 :: EJB subpaths
-@if not defined fpx_ejb_dir echo ERROR: FPX_EJB_DIR not defined! & set error_config=1
-@if defined fpx_ejb_dir (if not exist %fpx_ejb_dir% @echo ERROR: FPX_EJB_DIR path is missing! & set error_config=1)
+@if not defined fpx_ejb_dir echo ERROR: FPX_EJB_DIR not defined! & set error_config=2
+@if defined fpx_ejb_dir (if not exist %fpx_ejb_dir% @echo ERROR: FPX_EJB_DIR path is missing! & set error_config=2)
 :: first time skip distribution folders
 @if not exist %fpx_ejb_dir%\distributions (goto SKIPEJBDSTR)
-::@if not defined fpx_ejb_jar_dir echo ERROR: FPX_EJB_JAR_DIR not defined! & set error_config=1
-@if defined fpx_ejb_jar_dir (if not exist %fpx_ejb_jar_dir% @echo ERROR: FPX_EJB_JAR_DIR path is missing! & set error_config=1)
-::@if not defined fpx_ear_dir echo ERROR: FPX_EAR_DIR not defined! & set error_config=1
-@if defined fpx_ear_dir (if not exist %fpx_ear_dir% @echo ERROR: FPX_EAR_DIR path is missing! & set error_config=1)
+@if not defined fpx_ejb_jar_dir echo ERROR: FPX_EJB_JAR_DIR not defined! & set error_config=2
+@if defined fpx_ejb_jar_dir (if not exist %fpx_ejb_jar_dir% @echo ERROR: FPX_EJB_JAR_DIR path is missing! & set error_config=2)
+@if not defined fpx_ear_dir echo ERROR: FPX_EAR_DIR not defined! & set error_config=2
+@if defined fpx_ear_dir (if not exist %fpx_ear_dir% @echo ERROR: FPX_EAR_DIR path is missing! & set error_config=2)
 :SKIPEJBDSTR
 :: jboss subpaths
-@if not defined jboss_bin_dir echo ERROR: JBOSS_BIN_DIR not defined! & set error_config=1
-@if defined jboss_bin_dir (if not exist %jboss_bin_dir% @echo ERROR: JBOSS_BIN_DIR path is missing! & set error_config=1)
-@if not defined jboss_deploy_dir echo ERROR: JBOSS_DEPLOY_DIR not defined! & set error_config=1
-@if defined jboss_deploy_dir (if not exist %jboss_deploy_dir% @echo ERROR: JBOSS_DEPLOY_DIR path is missing! & set error_config=1)
-
-@if [%error_config%]==[1] @echo Press any key to configure. . . & pause 1>NUL & call config.bat & goto AFTERCONFIG
+@if not defined jboss_bin_dir echo ERROR: JBOSS_BIN_DIR not defined! & set error_config=2
+@if defined jboss_bin_dir (if not exist %jboss_bin_dir% @echo ERROR: JBOSS_BIN_DIR path is missing! & set error_config=2)
+@if not defined jboss_deploy_dir echo ERROR: JBOSS_DEPLOY_DIR not defined! & set error_config=2
+@if defined jboss_deploy_dir (if not exist %jboss_deploy_dir% @echo ERROR: JBOSS_DEPLOY_DIR path is missing! & set error_config=2)
+@if [%error_config%]==[2] @echo Press any key to configure project. . . & pause 1>NUL & call %notepad_exec% %projectConstantParams_file% & goto AFTERCONFIG
 :: -----------------------
 ::   5. JBOSS SETTINGS
 @echo ##Validating JBOSS settings...

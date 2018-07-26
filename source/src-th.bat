@@ -1,2 +1,2 @@
 @call .preLoad.bat
-@explorer "%fpx_thymeleaf_dir%"
+@explorer "%fpx_res_thymeleaf_dir%"
