@@ -22,6 +22,8 @@ echo    extargz ^:1 ^:2 =   gradle build ^& export as .tar.gz file (no traces)
 echo    src           =   open explorer to folder ^> source code 
 echo    src-th        =   open explorer to folder ^> thymeleaf
 echo    jboss         =   open explorer to folder ^> JBOSS deployment
+echo    log           =   open explorer to folder ^> LOG_path set in USER CONFIG
+echo    workspace     =   open explorer to folder ^> user workspace
 echo    eclipse       =   update dependencies for Eclipse IDE (build.gradle)
 echo  Others ^>^> [config]//[help]//[reboot]//[welcome]//[edit]//[root]
 echo.
@@ -44,7 +46,8 @@ echo    war           =   open explorer to folder ^> WAR distr
 echo    ear           =   open explorer to folder ^> EAR distr
 echo    jboss         =   open explorer to folder ^> JBOSS deployment
 echo    jboss-th      =   open explorer to folder ^> JBOSS WAR thymeleaf
-echo    log           =   open explorer to folder ^> local LOG path in USER CONFIG
+echo    log           =   open explorer to folder ^> LOG_path set in USER CONFIG
+echo    workspace     =   open explorer to folder ^> user workspace
 echo    leaf          =   deploy changes (thymeleaf/locale)
 echo    up-res        =   deploy changes (thymeleaf/static/locale)
 echo    up-war        =   update WAR folder in JBOSS deployment
